@@ -392,14 +392,14 @@ body {
 }
 
 .pin-1 {
-  background: url("../images/bg-1.png") no-repeat;
+  background: url("../images/p1-bg.png") no-repeat;
   -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
 }
 .pin-1 .p1-inner {
-  width: 6.08rem;
-  height: 8.33rem;
-  background: url("../images/redpacket.png") no-repeat;
+  width: 6.7rem;
+  height: 8.95rem;
+  background: url("../images/p1-2.png") no-repeat;
   -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   -webkit-transform: translate(-50%, -50%);
@@ -420,15 +420,17 @@ body {
   margin: 0 auto 0.5rem;
   width: 2.05rem;
   height: 2.09rem;
+  background: url("../images/p1-4.png") no-repeat;
+  background-size: 100% 100%;
 }
 .pin-1 .p1-t1 {
   margin: 0 auto;
-  width: 2.76rem;
-  height: 0.89rem;
+  width: 4.31rem;
+  height: 1.13rem;
 }
 
 .pin-2 {
-  background: #2b0103 url("../images/p2-bg.png") no-repeat;
+  background: #0a0001 url("../images/p2-bg.png") no-repeat;
   -webkit-background-size: 100%;
   background-size: 100%;
 }
@@ -438,19 +440,14 @@ body {
   margin: 1rem auto 0.9rem;
 }
 .pin-2 .btn-submit {
-  position: absolute;
-  bottom: 1.4rem;
-  left: 52%;
-  margin-left: -1rem;
-  width: 2rem;
-  height: 0.6rem;
+  width: 5.88rem;
+  height: 1.12rem;
+  margin: 6rem auto 0;
 }
 .pin-2 .privacy-term {
-  position: absolute;
-  right: 0.2rem;
-  bottom: 0.2rem;
-  width: 2.82rem;
-  height: 0.35rem;
+  width: 2.52rem;
+  height: 0.27rem;
+  margin: 0 auto;
 }
 .pin-2 .p2-search {
   position: absolute;
@@ -552,44 +549,18 @@ select:-webkit-autofill {
 }
 
 .pin-3 {
-  background: url("../images/p3-bg.png") no-repeat;
+  background: #3b0f14 url("../images/p3-bg.png") no-repeat;
   -webkit-background-size: 100%;
   background-size: 100%;
 }
-.pin-3 .logo {
-  width: 2.01rem;
-  height: 2.05rem;
-  margin: 2.2rem auto 0.8rem;
-}
 .pin-3 .p3-t1 {
-  width: 3.52rem;
-  height: 2.24rem;
-  margin: 0 auto 2.5rem;
+  width: 3.57rem;
+  height: 2.28rem;
+  margin: 4rem auto 2.5rem;
 }
-.pin-3 .p3-t1 .tt {
-  width: 100%;
-  background: url("../images/money-list.png") no-repeat;
-  background-size: 100%;
-}
-.pin-3 .p3-t1 .t1 {
-  height: 0.6rem;
-  background-position: 0 0;
-}
-.pin-3 .p3-t1 .t2 {
-  height: 1rem;
-  background-position: 0 31%;
-  margin: 0 auto 0.2rem;
-}
-.pin-3 .p3-t1 .t2.money2 {
-  background-position: 0 75%;
-}
-.pin-3 .p3-t1 .t3 {
-  height: 0.3rem;
-  background-position: 0 100%;
-}
-.pin-3 .btn {
-  width: 2.52rem;
-  height: 0.6rem;
+.pin-3 .btn-get {
+  width: 4.13rem;
+  height: 1.02rem;
   margin: 0 auto 0.2rem;
 }
 
@@ -838,10 +809,11 @@ select:-webkit-autofill {
 .tips-pop .tips-1 {
   width: 4rem;
   height: 0.75rem;
-  background: url("../images/tips.png") no-repeat;
+  background: url("../images/tips.png");
   background-size: 100%;
 }
 .tips-pop .btn-tips {
+  display: block;
   width: 1.8rem;
   height: 0.5rem;
   float: left;

@@ -1,11 +1,41 @@
 function gotoPin(i) {
-	var $pin = $('.wrapper .pin');
-	$pin.removeClass('current').eq(i).addClass('current');
+	var $pin = document.getElementsByClassName('pin');
+	console.log($pin);
+	//$pin[i].addClass('current');
+	Common.addClass($pin[i],'current');
 }
-
 ;(function(){
 	var ua = navigator.userAgent.toLowerCase();
 	var Common = {
+		hasClass:function(ele,newclass){
+			var arryClass = ele.className.split(' ');
+			for(var i=0;i<arryClass.length;i++){
+				if(arryClass[i]==newclass){
+					return true;
+				}else{
+					return false;
+				}
+			};
+		},
+		addClass:function(ele,newclass){
+			var self = this;
+			if(!self.hasClass(ele,newclass)){
+				ele.className = ele.className + ' '+newclass;
+			}
+		},
+		removeClass:function(ele,newclass){
+			var self = this;
+			console.log(self.hasClass(ele,newclass));
+			if(self.hasClass(ele,newclass)){
+				var arryClass = ele.className.split(' ');
+				ele.className = '';
+				for(var j=0;j<arryClass.length;j++){
+					if(arryClass[j]!==newclass){
+						ele.className = ele.className + ' '+arryClass[j];
+					}
+				};
+			}
+		},
 		goHomepage:function(){
 			gotoPin(0);
 		},
