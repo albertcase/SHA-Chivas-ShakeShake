@@ -4,6 +4,7 @@
     var controller = function(){
         this.curPage = 0;
         this.selectedColor = '';
+        this.isShake = false;
     };
     controller.prototype = {
         init:function(){
@@ -24,9 +25,10 @@
 
                     //bind all dom element
                     self.bindEvent();
+                    console.log(self.isShake);
 
                     //start
-                    gotoPin(2);
+                    gotoPin(0);
 
                 }
             })
@@ -47,6 +49,31 @@
             });
 
         },
+
+        //shake function
+        shake:function(){
+
+        },
+
+        //form function
+        mobileValidate:function(){
+
+        },
+        couponValidate:function(){
+
+        },
+        formKeycode:function(){
+
+        },
+        formCoupon:function(){
+
+        },
+
+        moneyPage:function(){
+
+        },
+
+        //
 
         compareCommand:function(commandline){
             /*

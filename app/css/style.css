@@ -349,7 +349,7 @@ body {
 }
 
 .pin {
-  opacity: 0;
+  display: none;
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -367,7 +367,7 @@ body {
   -webkit-animation-duration: 600ms;
 }
 .pin.current {
-  opacity: 1;
+  display: block;
   z-index: 100;
 }
 .pin .inner {
@@ -422,6 +422,11 @@ body {
   height: 2.09rem;
   background: url("../images/p1-4.png") no-repeat;
   background-size: 100% 100%;
+}
+.pin-1 .btn-open img {
+  width: 1.49rem;
+  height: 1.26rem;
+  margin: 0.3rem 0 0;
 }
 .pin-1 .p1-t1 {
   margin: 0 auto;

@@ -8,32 +8,35 @@ function gotoPin(i) {
 	var ua = navigator.userAgent.toLowerCase();
 	var Common = {
 		hasClass:function(ele,newclass){
-			var arryClass = ele.className.split(' ');
-			for(var i=0;i<arryClass.length;i++){
-				if(arryClass[i]==newclass){
-					return true;
-				}else{
-					return false;
-				}
-			};
+			//var arryClass = ele.className.split(' ');
+			//for(var i=0;i<arryClass.length;i++){
+			//	if(arryClass[i]==newclass){
+			//		return true;
+			//	}else{
+			//		return false;
+			//	}
+			//};
+			newclass = newclass || '';
+			if (newclass.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+			return new RegExp(' ' + newclass + ' ').test(' ' + ele.className + ' ');
 		},
 		addClass:function(ele,newclass){
 			var self = this;
-			if(!self.hasClass(ele,newclass)){
-				ele.className = ele.className + ' '+newclass;
+			//if(!self.hasClass(ele,newclass)){
+			//	ele.className = ele.className + ' '+newclass;
+			//}
+			if (!self.hasClass(ele, newclass)) {
+				ele.className = ele.className == '' ? newclass : ele.className + ' ' + newclass;
 			}
 		},
 		removeClass:function(ele,newclass){
 			var self = this;
-			console.log(self.hasClass(ele,newclass));
-			if(self.hasClass(ele,newclass)){
-				var arryClass = ele.className.split(' ');
-				ele.className = '';
-				for(var j=0;j<arryClass.length;j++){
-					if(arryClass[j]!==newclass){
-						ele.className = ele.className + ' '+arryClass[j];
-					}
-				};
+			if (self.hasClass(ele, newclass)) {
+				var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+				while (newClass.indexOf(' ' + newclass + ' ') >= 0) {
+					newClass = newClass.replace(' ' + newclass + ' ', ' ');
+				}
+				ele.className = newClass.replace(/^\s+|\s+$/g, '');
 			}
 		},
 		goHomepage:function(){
