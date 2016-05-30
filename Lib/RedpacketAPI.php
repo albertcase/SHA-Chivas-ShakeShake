@@ -12,16 +12,20 @@ class RedpacketAPI extends Base {
         $DatabaseAPI = new \Lib\DatabaseAPI();
         $user = $DatabaseAPI->findUserForWechat($openid);
         if (!$user) {
+            $RedisAPI->unlock($openid);
             return false;
         }
         if ($user->status == 1) {
+            $RedisAPI->unlock($openid);
             return false;
         }
         if ($user->money == 0) {
+            $RedisAPI->unlock($openid);
             return false;
         }
         $log = $DatabaseAPI->findLog($openid);
         if ($log) {
+            $RedisAPI->unlock($openid);
             return false;
         }
 
