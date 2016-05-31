@@ -1,12 +1,34 @@
 function gotoPin(i) {
 	var $pin = document.getElementsByClassName('pin');
-	console.log($pin);
-	//$pin[i].addClass('current');
 	Common.addClass($pin[i],'current');
 }
 ;(function(){
 	var ua = navigator.userAgent.toLowerCase();
 	var Common = {
+		//obj has type,url
+		ajax:function(obj,callback){
+
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						//	success
+						console.log(xhr.response);
+						return callback(xhr.response);
+					} else {
+						console.error(xhr.statusText);
+					}
+				}
+			};
+			xhr.onerror = function(){
+				console.log('请求报错');
+			};
+			xhr.open(obj.type,obj.url,true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.responseType = "application/json";
+			xhr.send(JSON.stringify(obj.data));
+
+		},
 		hasClass:function(ele,newclass){
 			//var arryClass = ele.className.split(' ');
 			//for(var i=0;i<arryClass.length;i++){
@@ -51,15 +73,28 @@ function gotoPin(i) {
 		},
 		errorMsg : {
 			add:function(ele,msg){
-				if(!ele.find('.error').length){
-					ele.append('<div class="error">'+msg+'</div>');
-				}else{
-					ele.find('.error').html(msg);
+
+				for(var i in ele.childNodes){
+					if(ele.childNodes[i].className == 'error'){
+						ele.childNodes[i].textContent = msg;
+						return true;
+					}else{
+						if(i==ele.childNodes.length-1){
+							var newDiv = document.createElement('div');
+							newDiv.textContent = msg;
+							newDiv.className = 'error';
+							ele.appendChild(newDiv);
+						}
+					}
 				}
 			},
 			remove:function(ele){
-				if(ele.find('.error').length){
-					ele.find('.error').remove();
+
+				for(var i in ele.childNodes){
+					if(ele.childNodes[i].className == 'error'){
+						ele.childNodes[i].parentNode.removeChild(ele.childNodes[i]);
+						return;
+					}
 				}
 			}
 		},
@@ -70,3 +105,13 @@ function gotoPin(i) {
 	this.Common = Common;
 
 }).call(this);
+
+//Common.ajax({
+//	type:'POST',
+//	url:'/',
+//	data:{
+//		a:'a'
+//	}
+//},function(data){
+//	console.log(data);
+//});
