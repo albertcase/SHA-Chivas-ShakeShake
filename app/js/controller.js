@@ -14,8 +14,6 @@
             var self = this;
             //    loading first
             //$('.loading-wrap').addClass('show');
-            document.getElementsByClassName('preloading')[0].remove();
-            Common.removeClass(document.getElementsByClassName('tips-pop')[0],'hide');
             var baseurl = ''+'/app';
             var imagesArray = [
                 baseurl + '/images/tips.png',
@@ -26,6 +24,9 @@
 
                 },
                 onComplete: function(){
+                    //show age pop
+                    document.getElementsByClassName('preloading')[0].remove();
+                    Common.removeClass(document.getElementsByClassName('tips-pop')[0],'hide');
 
                     //bind all dom element
                     self.bindEvent();
