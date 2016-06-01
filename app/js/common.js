@@ -24,7 +24,7 @@ function gotoPin(i) {
 			};
 			xhr.open(obj.type,obj.url,true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.responseType = "application/json";
+			xhr.responseType = "json";
 			xhr.send(JSON.stringify(obj.data));
 
 		},
