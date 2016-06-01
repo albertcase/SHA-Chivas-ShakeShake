@@ -3,7 +3,7 @@
 $routers = array();
 $routers['/'] = array('ChivasBundle\Site', 'index');
 $routers['/api/test'] = array('ChivasBundle\Api', 'test');
-$routers['/api/status'] = array('ChivasBundle\Api', 'status');
+$routers['/api/islogin'] = array('ChivasBundle\Api', 'islogin');
 $routers['/api/check'] = array('ChivasBundle\Api', 'check');
 $routers['/api/submit'] = array('ChivasBundle\Api', 'submit');
 $routers['/qrcode'] = array('ChivasBundle\Curio', 'qrcode');
