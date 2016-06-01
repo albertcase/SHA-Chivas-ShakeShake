@@ -65,7 +65,7 @@
 
                 Common.addClass(btnYes.parentElement.parentElement,'hide');
                 Api.isLogin(function(data){
-                    console.log(data);
+                    console.log(data.status);
                     if(data.status==1){
                         if(data.msg.money>0){
                             //go money page
