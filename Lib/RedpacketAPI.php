@@ -53,6 +53,7 @@ class RedpacketAPI extends Base {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $return = curl_exec($ch);
         curl_close($ch);
+        $DatabaseAPI = new \Lib\DatabaseAPI();
         $rs = $DatabaseAPI->redpacketLog($uid, $openid, $money, $data['mch_billno'], $return);
         $RedisAPI->unlock($openid);
         return $rs;
