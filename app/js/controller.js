@@ -66,10 +66,11 @@
                 Common.addClass(btnYes.parentElement.parentElement,'hide');
                 Api.isLogin(function(data){
                     if(data.status==1){
-                        //gotoPin(0);
+                        console.log(data.msg.money);
                         if(data.msg.money>0){
                             //go money page
                             gotoPin(2);
+
                         }else{
                             gotoPin(0);
                         }
