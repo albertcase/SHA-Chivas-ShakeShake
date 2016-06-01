@@ -4,6 +4,10 @@ namespace Lib;
 class RedpacketAPI extends Base {
 
     public function sendredpack($uid, $openid, $money) {
+        echo $uid;
+        echo $openid;
+        echo $money;
+        exit;
         $RedisAPI = new \Lib\RedisAPI();
         if ($RedisAPI->islock($openid)) {
             return false;
