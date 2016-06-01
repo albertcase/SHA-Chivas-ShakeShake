@@ -8,13 +8,11 @@ Api = {
             return callback(data);
         });
     },
-    getKeycode:function(mobile,callback){
+    getKeycode:function(obj,callback){
         Common.ajax({
             url:'/api/check',
             type:'POST',
-            data:{
-                mobile:mobile
-            }
+            data:obj
         },function(data){
             return callback(data);
         });

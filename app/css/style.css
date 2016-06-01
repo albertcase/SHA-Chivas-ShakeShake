@@ -195,7 +195,7 @@ img {
 }
 
 body {
-  font: 0.24rem/1.5 "SimSun",serif;
+  font: 0.24rem/1.5 "Heiti",sans-serif;
   background: #000;
   color: #fff;
 }
@@ -520,9 +520,9 @@ input[type="tel"] {
   border: none;
 }
 .form-validate .btn-getkeycode.countdown {
-  background: #5d2827;
+  background: #885b26;
   border-radius: 10px;
-  color: #bf8b67;
+  color: #e4a86e;
   font-size: 0.24rem;
   line-height: 0.42rem;
   padding: 0;
@@ -562,6 +562,19 @@ select:-webkit-autofill {
   width: 3.57rem;
   height: 2.28rem;
   margin: 4rem auto 2.5rem;
+  background: url("../images/money.png") no-repeat;
+  background-size: 100%;
+}
+.pin-3 .p3-t1 #money-value {
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: normal;
+  display: inline-block;
+  padding-right: 0.3rem;
+  padding-top: 0.5rem;
+  text-shadow: #77160a 0px 3px 1px;
+  background: url("../images/yuan.png") right 1.4rem no-repeat;
+  background-size: 0.32rem;
 }
 .pin-3 .btn-get {
   width: 4.13rem;
