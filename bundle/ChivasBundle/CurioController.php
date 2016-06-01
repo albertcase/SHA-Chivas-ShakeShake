@@ -166,15 +166,7 @@ class CurioController extends Controller {
 	}
 
 	public function callbackAction() {		
-		$data = $GLOBALS['HTTP_RAW_POST_DATA'];
 		
-		// $data = json_decode($data, true);
-		// $DatabaseAPI = new \Lib\DatabaseAPI();
-		// $DatabaseAPI->regUser($data['data']['openid'], $data['data']['nickname'], $data['data']['headimgurl']);
-		exit;
-	}
-
-	public function redirectAction() {		
 		$openid = $_GET['openid'];
 		$user = new \Lib\UserAPI();
 		$user->userLogin($openid);
@@ -183,6 +175,15 @@ class CurioController extends Controller {
 			exit;
 		}
 		$this->redirect('/');
+		exit;
+	}
+
+	public function savedataAction() {		
+		$data = $GLOBALS['HTTP_RAW_POST_DATA'];
+		
+		// $data = json_decode($data, true);
+		// $DatabaseAPI = new \Lib\DatabaseAPI();
+		// $DatabaseAPI->regUser($data['data']['openid'], $data['data']['nickname'], $data['data']['headimgurl']);
 		exit;
 	}
 
