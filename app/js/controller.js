@@ -62,14 +62,28 @@
             //age above 18, click yes, start game
             var btnYes = document.getElementsByClassName('btn-tips-yes')[0];
             btnYes.addEventListener('touchstart', function(){
-                console.log(1);
+
                 Common.addClass(btnYes.parentElement.parentElement,'hide');
-                gotoPin(0);
                 Api.isLogin(function(data){
                     if(data.status==1){
-                        gotoPin(0)
-                    }else{
-                        gotoPin(2);
+                        //gotoPin(0);
+                        if(data.msg.money>0){
+                            //go money page
+                            gotoPin(2);
+                        }else{
+                            gotoPin(0);
+                        }
+
+                        //islogged
+                        if(data.msg.mobile){
+                            self.hasLogged = true;
+                        }else{
+                            self.hasLogged = false;
+                        }
+
+                    }else if(data.status == 0){
+                        //not authorization
+                        window.location.href = 'http://oauth.curio.im/v1/wx/web/auth/29b95ed3-502b-4c44-9084-b978b287c1fb';
                     }
                 });
             });
@@ -125,18 +139,12 @@
             var self = this;
             //if shake success, go form page
             var mobileInput = document.getElementById('input-phone');
-            Api.isLogin(function(data){
-                if(data.msg.mobile){
-                    self.hasLogged = true;
-                    //hide keycode box, disable mobile input
-                    document.getElementById('input-keycode').parentNode.style.display = 'none';
-                    mobileInput.value = data.msg.mobile;
-                    mobileInput.disabled = true;
-                }else{
-                    // never submit mobile
-                    self.hasLogged = true;
-                }
-            });
+            if(self.hasLogged){
+                //hide keycode box, disable mobile input
+                document.getElementById('input-keycode').parentNode.style.display = 'none';
+                mobileInput.value = data.msg.mobile;
+                mobileInput.disabled = true;
+            }
             gotoPin(1);
         },
 
