@@ -1,48 +1,57 @@
 /*All the api collection*/
 Api = {
-    //api/status
-    isFollow:function(callback){
-        $.ajax({
-            url:'/api/status',
-            type:'POST',
-            dataType:'json',
-            success:function(data){
-                return callback(data);
-            }
-        });
-    }
-    ,
-    //{"status":1,"msg":{"id":"1","openid":"oKCDxjivJ92ky4dxLT8dt1jcXtn4","nickname":"nickname","headimgurl":"headimgurl","greeting":false,"background":false,"ballot":"1”}}
     isLogin:function(callback){
-        $.ajax({
+        Common.ajax({
             url:'/api/islogin',
-            type:'POST',
-            dataType:'json',
-            success:function(data){
-                return callback(data);
-            }
+            type:'POST'
+        },function(data){
+            return callback(data);
         });
     },
-    ifShared:function(callback){
-        $.ajax({
-            url:'/api/share',
+    getKeycode:function(mobile,callback){
+        Common.ajax({
+            url:'/api/check',
             type:'POST',
-            dataType:'json',
-            success:function(data){
-                return callback(data);
+            data:{
+                mobile:mobile
             }
+        },function(data){
+            return callback(data);
         });
     },
-    coupon:function(callback){
-        $.ajax({
-            url:'/api/card',
+    //mobile checknum  code
+    submitAll:function(obj,callback){
+        Common.ajax({
+            url:'/api/submit',
             type:'POST',
-            dataType:'json',
-            success:function(data){
-                return callback(data);
-            }
+            data:obj
+        },function(data){
+            return callback(data);
         });
     },
+    //mobile code
+    submitWithoutChecknum:function(obj,callback){
+        Common.ajax({
+            url:'/api/submit2',
+            type:'POST',
+            data:obj
+        },function(data){
+            return callback(data);
+        });
+    },
+    //    api/getredpacket
+    //返回 code 为1 已关注用户红包直接到账
+    //返回 code 为2 未关注用户弹出二维码
+    getRedpacket:function(obj,callback){
+        Common.ajax({
+            url:'/api/getredpacket',
+            type:'POST',
+            data:obj
+        },function(data){
+            return callback(data);
+        });
+    },
+
 
 
 };
