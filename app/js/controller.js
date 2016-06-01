@@ -24,12 +24,15 @@
 
                 },
                 onComplete: function(){
+                    //show age pop
+                    document.getElementsByClassName('preloading')[0].remove();
+                    Common.removeClass(document.getElementsByClassName('tips-pop')[0],'hide');
 
                     //bind all dom element
                     self.bindEvent();
 
                     //start
-                    gotoPin(1);
+                    //gotoPin(0);
 
                 }
             })
@@ -40,6 +43,7 @@
             //age above 18, click yes, start game
             var btnYes = document.getElementsByClassName('btn-tips-yes')[0];
             btnYes.addEventListener('touchstart', function(){
+                console.log(1);
                 Common.addClass(btnYes.parentElement.parentElement,'hide');
                 gotoPin(0);
                 Api.isLogin(function(data){
