@@ -3,32 +3,12 @@ namespace Lib;
 
 class RedpacketAPI extends Base {
 
-    public function sendredpack($openid) {
-        // $RedisAPI = new \Lib\RedisAPI();
-        // if ($RedisAPI->islock($openid)) {
-        //     return false;
-        // }
-        // $RedisAPI->lock($openid);
-        $DatabaseAPI = new \Lib\DatabaseAPI();
-        $user = $DatabaseAPI->findUserForWechat($openid);
-        if (!$user) {
-            //$RedisAPI->unlock($openid);
+    public function sendredpack($uid, $openid, $money) {
+        $RedisAPI = new \Lib\RedisAPI();
+        if ($RedisAPI->islock($openid)) {
             return false;
         }
-        if ($user->status == 1) {
-            //$RedisAPI->unlock($openid);
-            return false;
-        }
-        if ($user->money == 0) {
-            //$RedisAPI->unlock($openid);
-            return false;
-        }
-        $log = $DatabaseAPI->findLog($openid);
-        if ($log) {
-            //$RedisAPI->unlock($openid);
-            return false;
-        }
-
+        $RedisAPI->lock($openid);
         $api_url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         $data = array(
             'nonce_str' => '123123',
@@ -36,11 +16,11 @@ class RedpacketAPI extends Base {
             'mch_id' => '1275055201',
             'wxappid' => 'wx35a6d476b0dda3ea',
             'send_name' => '芝华士Chivas',
-            're_openid' => $user->openid,
+            're_openid' => $openid,
             //'re_openid' => 'o3vWouHPZ73bIf5jyIZ9xea9fEfg',
             //'re_openid' => 'o3vWouBrq-b73OV25cFXhZNboy_k',
             
-            'total_amount' => $user->money,
+            'total_amount' => $money,
             'total_num' => '1',
             'wishing' => '芝华士祝您大吉大利',
             'client_ip' => '123.59.150.53',
@@ -73,9 +53,8 @@ class RedpacketAPI extends Base {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $return = curl_exec($ch);
         curl_close($ch);
-        $DatabaseAPI->updateStatusByUid($user->uid);
-        $rs = $DatabaseAPI->redpacketLog($user->uid, $user->openid, $user->money, $data['mch_billno'], $return);
-        //$RedisAPI->unlock($openid);
+        $rs = $DatabaseAPI->redpacketLog($uid, $openid, $money, $data['mch_billno'], $return);
+        $RedisAPI->unlock($openid);
         return $rs;
     }
 

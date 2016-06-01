@@ -12,7 +12,7 @@ class ApiController extends Controller {
 		exit;
 	}
 
-	public function statusAction() {
+	public function isloginAction() {
 		$UserAPI = new \Lib\UserAPI();
 		$user = $UserAPI->userLoad(true);
 		if (!$user) {
@@ -20,7 +20,10 @@ class ApiController extends Controller {
 		}
 		$DatabaseAPI = new \Lib\DatabaseAPI();
 		$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
-		return $this->statusPrint($data->status, $data->money);
+		if (!$data) {
+			return $this->statusPrint(1, array("money" => 0, "mobile" => $user->mobile));
+		}
+		return $this->statusPrint(1, array("money" => $data->money, "mobile" => $user->mobile));
 	}
 
 	public function checkAction() {
@@ -70,10 +73,6 @@ class ApiController extends Controller {
 		if ($checknum != $_SESSION['msg_code']) {
 			return $this->statusPrint(4, '验证码不正确');
 		}
-		//半小时重复提交
-		// if (($user->money !=0) && ($user->timeint!=0) && (NOWTIME - $user->timeint <1800)) {
-		// 	return $this->statusPrint(6, $user->money);
-		// }
 
 		$DatabaseAPI = new \Lib\DatabaseAPI();
 
@@ -82,32 +81,38 @@ class ApiController extends Controller {
 			return $this->statusPrint(5, '兑换码不存在');
 		}
 		if ($codeInfo->uid != 0) {
-			//已经绑定
 			return $this->statusPrint(6, '兑换码已被使用');
 		}
-		$money = rand(100 , 500);
+		//销毁验证码
 		unset($_SESSION['msg_time']);
 		unset($_SESSION['msg_code']);
-		// $nowMoney = $DatabaseAPI->loadMoney(); 
-		// if ($nowMoney >= TOTALMONEY) {
-		// 	$DatabaseAPI->saveMoney($user->uid, $mobile, 0, NOWTIME);
-		// 	return $this->statusPrint(2, '红包已经发完了');
-		// }	
-		//可以领取
-		$rand = rand(1,2);
-		if ($rand == 1) {
-			//发1.88
-			$money = 188;		
-		} else {
-			//发2.12
-			$money = 212;
-		}
-		if ($DatabaseAPI->saveMoney($user->uid, $mobile, $money, NOWTIME)) {
-			$user->money = $money;
-			$user->timeint = NOWTIME;
-			return $this->statusPrint(1, $money);
-		}
-		return $this->statusPrint(999, '服务器繁忙，请稍候再试');
+		//纪录手机号
+		$DatabaseAPI->saveMobile($user->uid, $mobile);
+		$money = rand(100 , 500);
+		$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 0);
+		return $this->statusPrint(1, $money);
+
 		
+		
+	}
+
+	public function getredpacketAction() {
+		$UserAPI = new \Lib\UserAPI();
+		$user = $UserAPI->userLoad(true);
+		if (!$user) {
+			return $this->statusPrint(0, '未登录');
+		}
+		$wechatapi = new \Lib\WechatAPI();
+		$subscribe = $wechatapi->isUserSubscribed($user->openid);
+		if ($subscribe) {
+			//已关注 直接发红包
+			$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 1);
+			$redpacket = new \Lib\RedpacketAPI();
+			$redpacket->sendredpack($user->uid, $user->openid, $money);
+			return $this->statusPrint(1, 1);
+		}
+		//未关注
+		$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 0);
+		return $this->statusPrint(1, 0);
 	}
 }

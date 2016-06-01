@@ -115,10 +115,10 @@ class DatabaseAPI extends Base {
 		return 0;
 	}
 
-	public function saveMoney($uid, $mobile, $money, $timeint) {
-		$sql = "UPDATE `chivas_info` SET `mobile` = ?, `money` = ?, `timeint` = ? WHERE `id` = ?";
+	public function saveMoney($id, $uid, $money, $status) {
+		$sql = "UPDATE `chivas_code` SET `uid` = ?, `money` = ?, `status` = ? WHERE `id` = ?";
 		$res = $this->db->prepare($sql); 
-		$res->bind_param("ssss", $mobile, $money, $timeint, $uid);
+		$res->bind_param("ssss", $uid, $money, $status, $id);
 		if ($res->execute()) {
 			return TRUE;
 		} else {
@@ -139,14 +139,14 @@ class DatabaseAPI extends Base {
 	}
 
 	public function loadStatusAndMoneyByUid($uid) {
-		$sql = "SELECT status,money  FROM `chivas_info` WHERE `id` = ?"; 
+		$sql = "SELECT id, money FROM `chivas_code` WHERE `uid` = ? and status = 0"; 
 		$res = $this->db->prepare($sql);
 		$res->bind_param("s", $uid);
 		$res->execute();
-		$res->bind_result($status, $money);
+		$res->bind_result($id, $money);
 		if($res->fetch()) {
 			$data = new \stdClass();
-			$data->status = $status;
+			$data->id = $id;
 			$data->money = $money;
 			return $data;
 		}
@@ -228,6 +228,17 @@ class DatabaseAPI extends Base {
 			return $user;
 		}
 		return NULL;
+	}
+
+	public function saveMobile($uid, $mobile) {
+		$sql = "UPDATE `chivas_info` SET `mobile` = ? WHERE `id` = ?"; 
+		$res = $this->db->prepare($sql);
+		$res->bind_param("ss", $mobile, $uid);
+		if ($res->execute()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	
 
