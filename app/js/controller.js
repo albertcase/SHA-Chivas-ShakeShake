@@ -150,6 +150,9 @@
                     enableClick = false;
                     var mobile = inpueMobile.value;
 
+                    Api.isFollow(function(data){
+                        console.log(data);
+                    });
                     //Api.sendVerifycode({
                     //    mobile:mobile
                     //},function(data){

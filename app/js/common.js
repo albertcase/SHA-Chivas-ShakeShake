@@ -13,7 +13,6 @@ function gotoPin(i) {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 200) {
 						//	success
-						console.log(xhr.response);
 						return callback(xhr.response);
 					} else {
 						console.error(xhr.statusText);
