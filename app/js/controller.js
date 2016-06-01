@@ -16,7 +16,26 @@
             //$('.loading-wrap').addClass('show');
             var baseurl = ''+'/app';
             var imagesArray = [
+                baseurl + '/images/logo.png',
+                baseurl + '/images/p1-2.png',
+                baseurl + '/images/p1-3.png',
+                baseurl + '/images/p1-4.png',
+                baseurl + '/images/p1-bg.png',
+                baseurl + '/images/p2-bg.png',
+                baseurl + '/images/p2-pop-text.png',
+                baseurl + '/images/p3-bg.png',
+                baseurl + '/images/btn-getkeycode.png',
+                baseurl + '/images/btn-getmoney.png',
+                baseurl + '/images/button-ok.png',
+                baseurl + '/images/follow-text.png',
+                baseurl + '/images/input-border.png',
+                baseurl + '/images/link-privacy.png',
+                baseurl + '/images/money.png',
+                baseurl + '/images/qrcode-follow.png',
+                baseurl + '/images/shake-text.png',
                 baseurl + '/images/tips.png',
+                baseurl + '/images/tips-text.png',
+                baseurl + '/images/yuan.png'
             ];
             var i = 0;
             new preLoader(imagesArray, {
