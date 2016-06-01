@@ -29,7 +29,7 @@
                     self.bindEvent();
 
                     //start
-                    gotoPin(2);
+                    gotoPin(1);
 
                 }
             })
@@ -81,6 +81,18 @@
                 if(!enableGetPacket) return;
                 enableGetPacket = false;
                 self.getRedpacket();
+            });
+
+            //show the privacy pop
+            var linkPrivacy = document.getElementsByClassName('privacy-term')[0];
+            linkPrivacy.addEventListener('touchstart',function(){
+                //$('.term-pop').removeClass('hide').addClass('animate fade');
+                Common.removeClass(document.getElementsByClassName('term-pop')[0],'hide');
+            });
+
+            //    closePop
+            document.getElementsByClassName('btn-close')[0].addEventListener('touchstart',function(){
+                Common.addClass(document.getElementsByClassName('term-pop')[0],'hide');
             });
 
         },
@@ -236,13 +248,6 @@
 
                 };
             });
-            //show the privacy pop
-            //$('.privacy-term').on('click',function(){
-            //    $('.term-pop').removeClass('hide').addClass('animate fade');
-            //});
-
-            //    close the pop
-            //    self.closePop();
         },
         //倒计时
         countDown:function(){
