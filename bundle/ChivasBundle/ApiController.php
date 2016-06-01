@@ -91,9 +91,38 @@ class ApiController extends Controller {
 		$money = rand(100 , 500);
 		$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 0);
 		return $this->statusPrint(1, $money);
+	
+	}
 
-		
-		
+	public function submit2Action() {
+		$UserAPI = new \Lib\UserAPI();
+		$user = $UserAPI->userLoad(true);
+		if (!$user) {
+			return $this->statusPrint(0, '未登录');
+		}
+		$request = $this->Request();
+		$fields = array(
+			'mobile' => array('mobile', '3'),
+			'code' => array('notnull', '3'),
+		);
+		$request->validation($fields);
+		$mobile = $request->request->get('mobile');
+		$code = $request->request->get('code');
+		$DatabaseAPI = new \Lib\DatabaseAPI();
+
+		$codeInfo = $DatabaseAPI->checkCode($code);
+		if (!$codeInfo) {
+			return $this->statusPrint(5, '兑换码不存在');
+		}
+		if ($codeInfo->uid != 0) {
+			return $this->statusPrint(6, '兑换码已被使用');
+		}
+		//销毁验证码
+		unset($_SESSION['msg_time']);
+		unset($_SESSION['msg_code']);
+		$money = rand(100 , 500);
+		$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 0);
+		return $this->statusPrint(1, $money);
 	}
 
 	public function getredpacketAction() {
@@ -106,13 +135,17 @@ class ApiController extends Controller {
 		$subscribe = $wechatapi->isUserSubscribed($user->openid);
 		if ($subscribe) {
 			//已关注 直接发红包
-			$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 1);
+			$DatabaseAPI = new \Lib\DatabaseAPI();
+			$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
+			if (!$data) {
+				return $this->statusPrint(2, '非法请求');
+			}
+			$DatabaseAPI->updateStatusByUid($data->id);
 			$redpacket = new \Lib\RedpacketAPI();
-			$redpacket->sendredpack($user->uid, $user->openid, $money);
+			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
 			return $this->statusPrint(1, 1);
 		}
 		//未关注
-		$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 0);
 		return $this->statusPrint(1, 0);
 	}
 }

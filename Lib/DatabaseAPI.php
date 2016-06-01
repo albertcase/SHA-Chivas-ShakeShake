@@ -153,8 +153,8 @@ class DatabaseAPI extends Base {
 		return FALSE;
 	}
 
-	public function updateStatusByUid($uid) {
-		$sql = "UPDATE `chivas_info` SET status=1 WHERE `id` = ?"; 
+	public function updateStatusByUid($id) {
+		$sql = "UPDATE `chivas_code` SET status=1 WHERE `id` = ?"; 
 		$res = $this->db->prepare($sql);
 		$res->bind_param("s", $uid);
 		if ($res->execute()) {
