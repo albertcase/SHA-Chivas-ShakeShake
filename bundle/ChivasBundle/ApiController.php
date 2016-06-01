@@ -12,6 +12,12 @@ class ApiController extends Controller {
 		exit;
 	}
 
+	public function flushAction() {
+		 $RedisAPI = new \Lib\RedisAPI();
+		 $RedisAPI->flushAll();
+		exit;
+	}
+
 	public function isloginAction() {
 		$UserAPI = new \Lib\UserAPI();
 		$user = $UserAPI->userLoad(true);

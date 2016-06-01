@@ -26,4 +26,8 @@ class RedisAPI {
 	public function unlock($openid){
 		$this->_redis->del("chivas:".$openid);
 	}
+
+	public function flushAll() {
+		return $this->_redis->flushAll();
+	}
 }
