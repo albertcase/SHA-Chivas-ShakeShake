@@ -4,28 +4,28 @@ namespace Lib;
 class RedpacketAPI extends Base {
 
     public function sendredpack($openid) {
-        $RedisAPI = new \Lib\RedisAPI();
-        if ($RedisAPI->islock($openid)) {
-            return false;
-        }
-        $RedisAPI->lock($openid);
+        // $RedisAPI = new \Lib\RedisAPI();
+        // if ($RedisAPI->islock($openid)) {
+        //     return false;
+        // }
+        // $RedisAPI->lock($openid);
         $DatabaseAPI = new \Lib\DatabaseAPI();
         $user = $DatabaseAPI->findUserForWechat($openid);
         if (!$user) {
-            $RedisAPI->unlock($openid);
+            //$RedisAPI->unlock($openid);
             return false;
         }
         if ($user->status == 1) {
-            $RedisAPI->unlock($openid);
+            //$RedisAPI->unlock($openid);
             return false;
         }
         if ($user->money == 0) {
-            $RedisAPI->unlock($openid);
+            //$RedisAPI->unlock($openid);
             return false;
         }
         $log = $DatabaseAPI->findLog($openid);
         if ($log) {
-            $RedisAPI->unlock($openid);
+            //$RedisAPI->unlock($openid);
             return false;
         }
 
@@ -75,7 +75,7 @@ class RedpacketAPI extends Base {
         curl_close($ch);
         $DatabaseAPI->updateStatusByUid($user->uid);
         $rs = $DatabaseAPI->redpacketLog($user->uid, $user->openid, $user->money, $data['mch_billno'], $return);
-        $RedisAPI->unlock($openid);
+        //$RedisAPI->unlock($openid);
         return $rs;
     }
 

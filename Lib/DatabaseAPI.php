@@ -212,6 +212,23 @@ class DatabaseAPI extends Base {
 		return NULL;
 	}
 
+	public function checkCode($code) {
+		$sql = "SELECT `id`, `uid`, `code`, `money`, `status` FROM `chivas_code` WHERE `code` = ?"; 
+		$res = $this->db->prepare($sql);
+		$res->bind_param("s", $openid);
+		$res->execute();
+		$res->bind_result($id, $uid, $code, $money, $status);
+		if($res->fetch()) {
+			$user = new \stdClass();
+			$user->id = $id;
+			$user->uid = $uid;
+			$user->code = $code;
+			$user->money = $money;
+			$user->status = $status;
+			return $user;
+		}
+		return NULL;
+	}
 	
 
 }

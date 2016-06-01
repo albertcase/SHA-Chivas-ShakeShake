@@ -65,8 +65,9 @@ class ApiController extends Controller {
 		);
 		$request->validation($fields);
 		$mobile = $request->request->get('mobile');
+		$checknum = $request->request->get('checknum');
 		$code = $request->request->get('code');
-		if ($code != $_SESSION['msg_code']) {
+		if ($checknum != $_SESSION['msg_code']) {
 			return $this->statusPrint(4, '验证码不正确');
 		}
 		//半小时重复提交
@@ -76,16 +77,22 @@ class ApiController extends Controller {
 
 		$DatabaseAPI = new \Lib\DatabaseAPI();
 
-		if ($DatabaseAPI->loadStatusByUid($user->uid) == 1) {
-			return $this->statusPrint(5, '您已经领过红包了');
+		$codeInfo = $DatabaseAPI->checkCode($code);
+		if (!$codeInfo) {
+			return $this->statusPrint(5, '兑换码不存在');
 		}
+		if ($codeInfo->uid != 0) {
+			//已经绑定
+			return $this->statusPrint(6, '兑换码已被使用');
+		}
+		$money = rand(100 , 500);
 		unset($_SESSION['msg_time']);
 		unset($_SESSION['msg_code']);
-		$nowMoney = $DatabaseAPI->loadMoney(); 
-		if ($nowMoney >= TOTALMONEY) {
-			$DatabaseAPI->saveMoney($user->uid, $mobile, 0, NOWTIME);
-			return $this->statusPrint(2, '红包已经发完了');
-		}	
+		// $nowMoney = $DatabaseAPI->loadMoney(); 
+		// if ($nowMoney >= TOTALMONEY) {
+		// 	$DatabaseAPI->saveMoney($user->uid, $mobile, 0, NOWTIME);
+		// 	return $this->statusPrint(2, '红包已经发完了');
+		// }	
 		//可以领取
 		$rand = rand(1,2);
 		if ($rand == 1) {

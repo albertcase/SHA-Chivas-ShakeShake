@@ -139,13 +139,13 @@ class CurioController extends Controller {
 		//exit;	
 		$data = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$postObj = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-		if ($postObj->EventKey == 'qrscene_11566') {
+		if ($postObj->EventKey == 'qrscene_76123') {
 			$DatabaseAPI = new \Lib\DatabaseAPI();
 			$DatabaseAPI->saveScan($data, 1);
 			
-			$openid = $postObj->FromUserName;
-			$redpacket = new \Lib\RedpacketAPI();
-			$redpacket->sendredpack($openid);
+			// $openid = $postObj->FromUserName;
+			// $redpacket = new \Lib\RedpacketAPI();
+			// $redpacket->sendredpack($openid);
 		}
 		exit;
 	}
