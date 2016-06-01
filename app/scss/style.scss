@@ -88,9 +88,8 @@ img{
 }
 .btn-close{
   position: relative;
-  @include size(0.6rem,0.6rem);
+  @include size(0.8rem,0.8rem);
   margin: 0rem auto 0rem;
-  left: -0.1rem;
   &:after{
     content: '';
     display: block;
@@ -98,7 +97,7 @@ img{
     height: 1px;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 0.4rem;
     background: #c0a176;
     @include transform(rotate(45deg));
   }
@@ -109,7 +108,7 @@ img{
     height: 1px;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 0.4rem;
     background: #c0a176;
     @include transform(rotate(-45deg));
   }
@@ -117,7 +116,7 @@ img{
 }
 
 body{
-  font:0.24rem/1.5 "SimSun",serif;
+  font:0.24rem/1.5 "Heiti",sans-serif;
   background: #000;
   color: #fff;
 }
@@ -304,8 +303,8 @@ body{
     left: 0;
   }
   .btn-submit{
-    @include size(5.88rem,1rem);
-    margin: 0 auto;
+    @include size(2rem,0.6rem);
+    margin: 0 auto 0.4rem;
   }
   .privacy-term{
     @include size(2.52rem,0.27rem);
@@ -359,9 +358,9 @@ input[type="tel"]{
     background-size: 100%;
     border: none;
     &.countdown{
-      background: #5d2827;
+      background: #885b26;
       border-radius: 10px;
-      color: #bf8b67;
+      color: #e4a86e;
       font-size: 0.24rem;
       line-height: 0.42rem;
       padding: 0;
@@ -398,6 +397,19 @@ select:-webkit-autofill {
   .p3-t1{
     @include size(3.57rem,2.28rem);
     margin: 4rem auto 2.5rem;
+    background: url("../images/money.png") no-repeat;
+    background-size: 100%;
+    #money-value{
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: normal;
+      display: inline-block;
+      padding-right: 0.3rem;
+      padding-top: 0.5rem;
+      text-shadow: #77160a 0px 3px 1px;
+      background: url("../images/yuan.png") right 1.4rem no-repeat;
+      background-size: 0.32rem;
+    }
   }
   .btn-get{
     @include size(4.13rem,1.02rem);
@@ -453,76 +465,6 @@ select:-webkit-autofill {
     margin-left: -0.3rem;
   }
 }
-
-
-//for pin-4
-.pin-4{
-  background:url("../images/coupon-bg.png") no-repeat;
-  -webkit-background-size: 100% 100%;
-  background-size: 100% 100%;
-  .logo{
-    margin: 1rem auto 0.8rem;
-    @include size(2.88rem,0.6rem);
-  }
-  .tmall{
-    margin: 0 auto;
-    @include size(6.89rem,4.43rem);
-  }
-  .weixin{
-    margin: -0.2rem auto 0;
-    @include size(6.89rem,4.51rem);
-  }
-}
-
-//for pin-5
-.pin-5{
-  background:#531320 url("../images/c-bg2.png") no-repeat;
-  -webkit-background-size: 100%;
-  background-size: 100%;
-  .logo{
-    margin: 1.1rem auto 0.5rem;
-    @include size(1.62rem,1.66rem);
-  }
-  .c-text{
-    margin: 0rem auto 0.1rem;
-    @include size(5.42rem,0.53rem);
-  }
-  .c-2{
-    margin: 0rem auto;
-    @include size(7.5rem,3.56rem);
-  }
-  .tao-wrap{
-    width: 5.9rem;
-    margin: 0 auto;
-    .title{
-      text-align: left;
-      margin-bottom: 0.2rem;
-      @include size(1.23rem,0.35rem);
-    }
-    .tao-code{
-      position: relative;
-      z-index: 10;
-      font-size: 0.27rem;
-      color: #000;
-      box-sizing: border-box;
-      padding: 0.6rem 0.5rem;
-      background: #e5c69f;
-      width: 100%;
-      height: 2.6rem;
-      text-align: left;
-      -webkit-appearance: none;
-      line-height: 1.5;
-      border: none;
-      border-radius: 0;
-      background: -moz-linear-gradient(top,#d9b78c,#f7ddba,#d9b78c);
-      background: -webkit-linear-gradient(top,#d9b78c,#f7ddba,#d9b78c);
-      background: -ms-linear-gradient(top,#d9b78c,#f7ddba,#d9b78c);
-      background: -o-linear-gradient(top,#d9b78c,#f7ddba,#d9b78c);
-      background: linear-gradient(top,#d9b78c,#f7ddba,#d9b78c);
-    }
-  }
-}
-
 
 //for ajax loading
 .ajaxpop{

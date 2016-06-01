@@ -5,6 +5,8 @@
         this.curPage = 0;
         this.selectedColor = '';
         this.isShake = false;
+        //if submitted and record user msg, hasLogged is true
+        this.hasLogged = false;
     };
     controller.prototype = {
         init:function(){
@@ -40,6 +42,13 @@
             btnYes.addEventListener('touchstart', function(){
                 Common.addClass(btnYes.parentElement.parentElement,'hide');
                 gotoPin(0);
+                Api.isLogin(function(data){
+                    if(data.status==1){
+                        gotoPin(0)
+                    }else{
+                        gotoPin(2);
+                    }
+                });
             });
 
             //age below 18, click no, stop game, quit wechat
@@ -64,20 +73,47 @@
 
             //click get keycode button
             self.SubmitKeycodeForm();
-            //var btnGetKeyCode = document.getElementsByClassName('btn-getkeycode')[0];
-            //self.MobileValidate();
-            //btnGetKeyCode.addEventListener('touchstart',function(e){
-            //    e.preventDefault();
-            //    self.MobileValidate();
-            //});
 
-            //var xml = docum;
+            //    getRedpacket
+            var btnGetRedpacket = document.getElementById('btn-getredpacket');
+            var enableGetPacket = true;
+            btnGetRedpacket.addEventListener('touchstart', function(){
+                if(!enableGetPacket) return;
+                enableGetPacket = false;
+                self.getRedpacket();
+            });
+
+            //show the privacy pop
+            var linkPrivacy = document.getElementsByClassName('privacy-term')[0];
+            linkPrivacy.addEventListener('touchstart',function(){
+                //$('.term-pop').removeClass('hide').addClass('animate fade');
+                Common.removeClass(document.getElementsByClassName('term-pop')[0],'hide');
+            });
+
+            //    closePop
+            document.getElementsByClassName('btn-close')[0].addEventListener('touchstart',function(){
+                Common.addClass(document.getElementsByClassName('term-pop')[0],'hide');
+            });
 
         },
 
         //shake function
         shake:function(){
+            var self = this;
             //if shake success, go form page
+            var mobileInput = document.getElementById('input-phone');
+            Api.isLogin(function(data){
+                if(data.msg.mobile){
+                    self.hasLogged = true;
+                    //hide keycode box, disable mobile input
+                    document.getElementById('input-keycode').parentNode.style.display = 'none';
+                    mobileInput.value = data.msg.mobile;
+                    mobileInput.disabled = true;
+                }else{
+                    // never submit mobile
+                    self.hasLogged = true;
+                }
+            });
             gotoPin(1);
         },
 
@@ -103,34 +139,45 @@
             return false;
         },
         FormKeycodeValidate:function(){
+            var self = this;
             var validate = true,
-                inputMobile = $('.form-validate .input-phone'),
-                inputKeyCode = $('.form-validate .input-keycode');
-            if(!inputMobile.val()){
-                Common.errorMsg.add(inputMobile.parent(),'手机号码不能为空');
+                inputMobile = document.getElementById('input-phone'),
+                inputKeyCode = document.getElementById('input-keycode'),
+                inputCoupon = document.getElementById('input-coupon');
+            if(!inputMobile.value){
+                Common.errorMsg.add(inputMobile.parentElement,'手机号码不能为空');
                 validate = false;
             }else{
                 var reg=/^1\d{10}$/;
-                if(!(reg.test(inputMobile.val()))){
+                if(!(reg.test(inputMobile.value))){
                     validate = false;
-                    Common.errorMsg.add(inputMobile.parent(),'手机号格式错误，请重新输入');
+                    Common.errorMsg.add(inputMobile.parentElement,'手机号格式错误，请重新输入');
                 }else{
-                    Common.errorMsg.remove(inputMobile.parent());
+                    Common.errorMsg.remove(inputMobile.parentElement);
                 }
             }
             //for keycode
-            if(!inputKeyCode.val()){
-                Common.errorMsg.add(inputKeyCode.parent(),'验证码不能为空');
+            if(!self.hasLogged){
+                if(!inputKeyCode.value){
+                    Common.errorMsg.add(inputKeyCode.parentElement,'验证码不能为空');
+                    validate = false;
+                }else{
+                    Common.errorMsg.remove(inputKeyCode.parentElement);
+                }
+            }
+
+            //for coupon
+            if(!inputCoupon.value){
+                Common.errorMsg.add(inputCoupon.parentElement,'兑换码不能为空');
                 validate = false;
             }else{
-                Common.errorMsg.remove(inputKeyCode.parent());
+                Common.errorMsg.remove(inputCoupon.parentElement);
             }
 
             if(validate){
                 return true;
-            }else{
-                return false;
             }
+            return false;
         },
         SubmitKeycodeForm:function(){
             var self = this;
@@ -141,7 +188,7 @@
             var enableClick = true;
             var btnGetKeycode = document.getElementsByClassName('btn-getkeycode')[0],
                 inpueMobile = document.getElementById('input-phone');
-            btnGetKeycode.addEventListener('click',function(e){
+            btnGetKeycode.addEventListener('touchstart',function(e){
                 e.preventDefault();
                 if(self.MobileValidate()){
                     //    start to get keycode
@@ -149,26 +196,15 @@
                     if(!enableClick) return;
                     enableClick = false;
                     var mobile = inpueMobile.value;
-
-                    Api.isFollow(function(data){
-                        console.log(data);
-                    });
-                    //Api.sendVerifycode({
-                    //    mobile:mobile
-                    //},function(data){
-                    //    setTimeout(function(){
-                    //        enableClick = true;
-                    //        $('.btn-getkeycode').removeClass('disabled');
-                    //        if(data.status==1){
-                    //
-                    //        }else if(data.status==0){
-                    //            //not login
-                    //            Common.goIndexpage();
-                    //        }else{
-                    //            Common.alertBox.add(data.msg);
-                    //        }
-                    //    },30000);
-                    //});
+                    if(!Common.hasClass(btnGetKeycode,'countdown')){
+                        self.countDown();
+                        Api.getKeycode({
+                            mobile:mobile
+                        },function(data){
+                            console.log(data);
+                            enableClick = true;
+                        });
+                    }
 
                 };
             });
@@ -176,85 +212,73 @@
             /*
              * Submit the Form, so we need FormKeycodeValidate first and then api
              */
-            //var enableSubmit = true;
-            //$('.form-validate .form-btn-submit').on('click',function(){
-            //    _hmt.push(['_trackEvent', 'buttons', 'click', 'submit2']);
-            //    if(self.FormKeycodeValidate()){
-            //        //if(!enableSubmit) return;
-            //        //enableSubmit = false;
-            //        //    start to get keycode
-            //        var phonenumber = $('.input-phone').val();
-            //        var keycode = $('.input-keycode').val();
-            //        Api.customerBind({
-            //            mobile:phonenumber,
-            //            verifycode:keycode
-            //        },function(data){
-            //            //enableSubmit = true;
-            //            if(data.status==1){
-            //                if(data.msg != "新用户"){
-            //                    Common.goCouponPage();
-            //                }else{
-            //                    //update info page
-            //                    $('.input-mobile').val(phonenumber);
-            //                    Common.goInfoPage();
-            //                }
-            //
-            //            }else if(data.status==0){
-            //                //not login
-            //                Common.goIndexpage();
-            //            }else{
-            //                Common.alertBox.add(data.msg);
-            //            }
-            //        });
-            //    };
-            //});
-            //show the privacy pop
-            //$('.privacy-term').on('click',function(){
-            //    $('.term-pop').removeClass('hide').addClass('animate fade');
-            //});
-
-            //    close the pop
-            //    self.closePop();
-        },
-        SubmitInformationForm:function(){
-            /*
-             * Submit the register information form
-             * */
-            var self = this;
+            var btnSubmit = document.getElementsByClassName('btn-submit')[0];
             var enableSubmit = true;
-            $('.form-info .form-btn-submit').on('click',function(){
-                _hmt.push(['_trackEvent', 'buttons', 'click', 'submit3']);
-                if(self.FormInforValidate()){
+            btnSubmit.addEventListener('touchstart',function(){
+                if(self.FormKeycodeValidate()){
                     if(!enableSubmit) return;
                     enableSubmit = false;
-                    Api.customerRegister({
-                            firstname:$('.input-surname').val(),
-                            lastname:$('.input-name').val(),
-                            mobile :$('.input-mobile').val(),
-                            email:$('.input-email-pre').val()+'@'+$('.input-email-after').val(),
-                            gender:$('input[name="gender"]:checked').val(),
-                            openid:self.openid,
-                        },
-                        function(data){
+                    //    start to get keycode
+                    var phonenumber = document.getElementById('input-phone').value,
+                        keyCode = document.getElementById('input-keycode').value,
+                        coponCode = document.getElementById('input-coupon').value;
+                    if(self.hasLogged){
+                        //submitted before
+                        Api.submitWithoutChecknum({
+                            mobile:phonenumber,
+                            code:coponCode
+                        },function(data){
                             enableSubmit = true;
-                            if(data.status==1){
-                                //update info page
-                                //go coupon page
-                                Common.goCouponPage();
-                            }else if(data.status==0){
-                                //not login
-                                Common.goIndexpage();
-                            }else{
-                                Common.alertBox.add(data.msg);
-                            }
+                            console.log('submitWithoutChecknum');
+                            gotoPin(2);
                         });
-                }
+                    }else{
+                        // never submitted
+                        Api.submitAll({
+                            mobile:phonenumber,
+                            checknum:keyCode,
+                            code:coponCode
+                        },function(data){
+                            enableSubmit = true;
+                            console.log('submitAll');
+                            gotoPin(2);
+                        });
+
+                    }
+
+                };
             });
+        },
+        //倒计时
+        countDown:function(){
+            var countdownTime = 59,
+                btnGetKeycode = document.getElementsByClassName('btn-getkeycode')[0];
+            var countdownline = setInterval(function(){
+                countdownTime--;
+                Common.addClass(btnGetKeycode,'countdown');
+                btnGetKeycode.innerHTML = countdownTime;
+                if(countdownTime<=0){
+                    clearInterval(countdownline);
+                    Common.removeClass(btnGetKeycode,'countdown');
+                    btnGetKeycode.innerHTML = '';
+                }
+            },1000);
 
         },
+        /*
+        * get redpacket
+        * */
+        getRedpacket:function(){
+            Api.getRedpacket({},function(data){
+                console.log(getRedpacket);
+                if(data.msg.code == 1){
+                    //followed, money go ahead
 
-        moneyPage:function(){
-
+                }else if(data.msg.code ==2){
+                    // not follow, qrcode first
+                    Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
+                }
+            });
         },
 
         //
