@@ -71,7 +71,7 @@
                         if(data.msg.money>0){
                             //go money page
                             gotoPin(2);
-                            document.getElementById('money-value').innerHTML = data.msg.money/100 ;
+                            document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
 
                         }else{
                             gotoPin(0);
@@ -276,6 +276,7 @@
                         },function(data){
                             enableSubmit = true;
                             console.log('submitWithoutChecknum');
+                            document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
                             gotoPin(2);
                         });
                     }else{
@@ -288,7 +289,7 @@
                             enableSubmit = true;
                             console.log('submitAll');
                             if(data.status==1){
-                                document.getElementById('money-value').innerHTML = data.msg.money/100 ;
+                                document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
                                 gotoPin(2);
                             }else{
                                 alert(data.msg);
