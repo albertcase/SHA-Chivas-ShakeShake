@@ -277,7 +277,7 @@
                         },function(data){
                             enableSubmit = true;
                             if(data.status == 1){
-                                document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
+                                document.getElementById('money-value').innerHTML = parseInt(data.msg)/100;
                                 gotoPin(2);
                             }else{
                                 Common.alertBox.add(data.msg);
@@ -293,7 +293,7 @@
                         },function(data){
                             enableSubmit = true;
                             if(data.status==1){
-                                document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
+                                document.getElementById('money-value').innerHTML = parseInt(data.msg)/100;
                                 gotoPin(2);
                             }else{
                                 Common.alertBox.add(data.msg);
