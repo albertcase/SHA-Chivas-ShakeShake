@@ -6,28 +6,28 @@ function gotoPin(i) {
 	var ua = navigator.userAgent.toLowerCase();
 	var Common = {
 		//obj has type,url
-		ajax:function(obj,callback){
-
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function(){
-				if (xhr.readyState === 4) {
-					if (xhr.status === 200) {
-						//	success
-						return callback(xhr.response);
-					} else {
-						console.error(xhr.statusText);
-					}
-				}
-			};
-			xhr.onerror = function(){
-				console.log('请求报错');
-			};
-			xhr.open(obj.type,obj.url,true);
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.responseType = "json";
-			xhr.send(JSON.stringify(obj.data));
-
-		},
+		//ajax:function(obj,callback){
+        //
+		//	var xhr = new XMLHttpRequest();
+		//	xhr.onreadystatechange = function(){
+		//		if (xhr.readyState === 4) {
+		//			if (xhr.status === 200) {
+		//				//	success
+		//				return callback(xhr.response);
+		//			} else {
+		//				console.error(xhr.statusText);
+		//			}
+		//		}
+		//	};
+		//	xhr.onerror = function(){
+		//		console.log('请求报错');
+		//	};
+		//	xhr.open(obj.type,obj.url,true);
+		//	xhr.setRequestHeader('Content-Type', 'application/json');
+		//	xhr.responseType = "json";
+		//	xhr.send(JSON.stringify(obj.data));
+        //
+		//},
 		hasClass:function(ele,newclass){
 			//var arryClass = ele.className.split(' ');
 			//for(var i=0;i<arryClass.length;i++){

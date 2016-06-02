@@ -5,6 +5,7 @@
         this.curPage = 0;
         this.selectedColor = '';
         this.isShake = false;
+        this.mobileVal = '';
         //if submitted and record user msg, hasLogged is true
         this.hasLogged = false;
     };
@@ -65,19 +66,22 @@
 
                 Common.addClass(btnYes.parentElement.parentElement,'hide');
                 Api.isLogin(function(data){
-                    console.log(data.status);
+
                     if(data.status==1){
                         if(data.msg.money>0){
                             //go money page
                             gotoPin(2);
+                            document.getElementById('money-value').innerHTML = data.msg.money/100 ;
 
                         }else{
                             gotoPin(0);
+                            self.isShake = true;
                         }
 
                         //islogged
                         if(data.msg.mobile){
                             self.hasLogged = true;
+                            self.mobileVal = data.msg.mobile;
                         }else{
                             self.hasLogged = false;
                         }
@@ -97,7 +101,6 @@
 
             //   start shake
             //listen to shake event
-            self.isShake = true;
             var shakeEvent = new Shake({threshold: 15});
             shakeEvent.start();
             window.addEventListener('shake', function(){
@@ -105,6 +108,13 @@
                 self.shake();
                 self.isShake = false;
             }, false);
+
+            //test shake function
+            document.getElementsByClassName('btn-open')[0].addEventListener('touchstart', function(){
+                if(!self.isShake) return;
+                self.shake();
+                self.isShake = false;
+            });
 
             //check if shake is supported or not.
             if(!("ondevicemotion" in window)){alert("Not Supported");}
@@ -143,7 +153,7 @@
             if(self.hasLogged){
                 //hide keycode box, disable mobile input
                 document.getElementById('input-keycode').parentNode.style.display = 'none';
-                mobileInput.value = data.msg.mobile;
+                mobileInput.value = self.mobileVal;
                 mobileInput.disabled = true;
             }
             gotoPin(1);
@@ -225,7 +235,7 @@
                 if(self.MobileValidate()){
                     //    start to get keycode
                     //$('.btn-getkeycode').addClass('disabled');
-                    if(!enableClick) return;
+                    //if(!enableClick) return;
                     enableClick = false;
                     var mobile = inpueMobile.value;
                     if(!Common.hasClass(btnGetKeycode,'countdown')){
@@ -233,8 +243,12 @@
                         Api.getKeycode({
                             mobile:mobile
                         },function(data){
-                            console.log(data);
-                            enableClick = true;
+                            if(data.status == 1){
+                                enableClick = true;
+                            }else{
+                                alert(data.msg);
+                            }
+
                         });
                     }
 
@@ -273,7 +287,12 @@
                         },function(data){
                             enableSubmit = true;
                             console.log('submitAll');
-                            gotoPin(2);
+                            if(data.status==1){
+                                document.getElementById('money-value').innerHTML = data.msg.money/100 ;
+                                gotoPin(2);
+                            }else{
+                                alert(data.msg);
+                            }
                         });
 
                     }
@@ -302,13 +321,18 @@
         * */
         getRedpacket:function(){
             Api.getRedpacket({},function(data){
-                console.log(getRedpacket);
-                if(data.msg.code == 1){
+                console.log(data);
+                if(data.status == 1){
                     //followed, money go ahead
+                    if(data.msg=='已领取'){
+                        alert('您的红包已从芝华士官方账号推送，请注意查收');
+                    }else if(data.msg=='未领取'){
+                        // not follow, qrcode first
+                        Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
+                    }
 
-                }else if(data.msg.code ==2){
-                    // not follow, qrcode first
-                    Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
+                }else{
+                    alert(data.status);
                 }
             });
         },
