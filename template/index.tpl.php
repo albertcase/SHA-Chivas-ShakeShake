@@ -88,7 +88,7 @@
     <!-- 验证成功后看到获得金额 -->
     <section class="pin pin-3">
         <div class="p3-t1">
-            <span id="money-value">2.99</span>
+            <span id="money-value"></span>
         </div>
         <div class="btn btn-get" id="btn-getredpacket">
             <img src="/app/images/btn-getmoney.png" alt=""/>

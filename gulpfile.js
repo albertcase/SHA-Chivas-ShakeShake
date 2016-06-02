@@ -14,7 +14,7 @@ var path = {
     template:['./app/template/index.html'],
     css:['./app/css/*.css'],
     js:['./app/js/*.js','!app/js/widget.js'],
-    index_include_js:['./app/js/lib/pre-loader.js','./app/js/lib/shake.js','./app/js/rem.js','./app/js/common.js','./app/js/api.js','./app/js/controller.js'],
+    index_include_js:['./app/js/lib/zepto.min.js','./app/js/lib/pre-loader.js','./app/js/lib/shake.js','./app/js/rem.js','./app/js/common.js','./app/js/api.js','./app/js/controller.js'],
 };
 
 // Browser-sync
