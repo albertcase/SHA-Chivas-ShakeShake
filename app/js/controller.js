@@ -276,8 +276,13 @@
                             code:coponCode
                         },function(data){
                             enableSubmit = true;
-                            document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
-                            gotoPin(2);
+                            if(data.status == 1){
+                                document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
+                                gotoPin(2);
+                            }else{
+                                Common.alertBox.add(data.msg);
+                            }
+
                         });
                     }else{
                         // never submitted
