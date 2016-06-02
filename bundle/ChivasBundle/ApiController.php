@@ -95,7 +95,7 @@ class ApiController extends Controller {
 		//纪录手机号
 		$DatabaseAPI->saveMobile($user->uid, $mobile);
 		$money = rand(100 , 500);
-		$DatabaseAPI->saveMoney($codeInfo->id, $user->id, $money, 0);
+		$DatabaseAPI->saveMoney($codeInfo->id, $user->uid, $money, 0);
 		return $this->statusPrint(1, $money);
 	
 	}
@@ -128,7 +128,7 @@ class ApiController extends Controller {
 		unset($_SESSION['msg_code']);
 		$money = rand(100 , 200);
 		//$money = 100;
-		$DatabaseAPI->saveMoney($codeInfo->id, $user->id, $money, 0);
+		$DatabaseAPI->saveMoney($codeInfo->id, $user->uid, $money, 0);
 		return $this->statusPrint(1, $money);
 	}
 
