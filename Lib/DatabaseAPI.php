@@ -215,7 +215,7 @@ class DatabaseAPI extends Base {
 	public function checkCode($code) {
 		$sql = "SELECT `id`, `uid`, `code`, `money`, `status` FROM `chivas_code` WHERE `code` = ?"; 
 		$res = $this->db->prepare($sql);
-		$res->bind_param("s", $openid);
+		$res->bind_param("s", $code);
 		$res->execute();
 		$res->bind_result($id, $uid, $code, $money, $status);
 		if($res->fetch()) {

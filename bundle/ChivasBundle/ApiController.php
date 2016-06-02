@@ -126,7 +126,8 @@ class ApiController extends Controller {
 		//销毁验证码
 		unset($_SESSION['msg_time']);
 		unset($_SESSION['msg_code']);
-		$money = rand(100 , 500);
+		$money = rand(100 , 200);
+		//$money = 100;
 		$DatabaseAPI->saveMoney($codeInfo->id, $uid, $money, 0);
 		return $this->statusPrint(1, $money);
 	}
