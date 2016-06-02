@@ -2,8 +2,6 @@
 ;(function(){
     'use strict';
     var controller = function(){
-        this.curPage = 0;
-        this.selectedColor = '';
         this.isShake = false;
         this.mobileVal = '';
         //if submitted and record user msg, hasLogged is true
@@ -14,7 +12,6 @@
             //loading all the resourse, such as css,js,image
             var self = this;
             //    loading first
-            //$('.loading-wrap').addClass('show');
             var baseurl = ''+'/app';
             var imagesArray = [
                 baseurl + '/images/logo.png',
@@ -50,6 +47,7 @@
 
                     //bind all dom element
                     self.bindEvent();
+                    //gotoPin(0);
 
                 }
             })

@@ -278,6 +278,11 @@ body{
     img{
       @include size(1.49rem,1.26rem);
       margin: 0.3rem 0 0;
+      //@include shake($duration: 1s,$count: infinite);
+      @include transform-origin(right bottom);
+      //@include transform(rotate(45deg));
+      @include animation(shakeshake 1s linear infinite);
+
     }
   }
   .p1-t1{
@@ -285,6 +290,18 @@ body{
     @include size(4.31rem,1.13rem);
   }
 
+}
+
+@include keyframes(shakeshake){
+  0%{
+    @include transform(rotate(0deg));
+  }
+  50%{
+    @include transform(rotate(-10deg));
+  }
+  100%{
+    @include transform(rotate(0deg));
+  }
 }
 
 //for .pin-2
