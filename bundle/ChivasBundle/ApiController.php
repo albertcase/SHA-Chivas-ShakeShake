@@ -150,9 +150,9 @@ class ApiController extends Controller {
 			$DatabaseAPI->updateStatusByUid($data->id);
 			$redpacket = new \Lib\RedpacketAPI();
 			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
-			return $this->statusPrint(1, 1);
+			return $this->statusPrint(1, '已领取');
 		}
 		//未关注
-		return $this->statusPrint(1, 0);
+		return $this->statusPrint(1, '未领取');
 	}
 }
