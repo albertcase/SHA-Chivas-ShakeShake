@@ -144,8 +144,15 @@ class CurioController extends Controller {
 			$DatabaseAPI->saveScan($data, 1);
 			
 			$openid = $postObj->FromUserName;
-			// $redpacket = new \Lib\RedpacketAPI();
-			// $redpacket->sendredpack($openid);
+			$user = $DatabaseAPI->findUserByOpenid($openid);
+			$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
+			if (!$data) {
+				return $this->statusPrint(2, '非法请求');
+			}
+			$DatabaseAPI->updateStatusByUid($data->id);
+			$redpacket = new \Lib\RedpacketAPI();
+			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
+			return $this->statusPrint(1, '已领取');
 		}
 		exit;
 	}
@@ -158,16 +165,16 @@ class CurioController extends Controller {
 			$DatabaseAPI = new \Lib\DatabaseAPI();
 			$DatabaseAPI->saveScan($data, 2);
 
-			$openid = $postObj->FromUserName;
-			$user = $DatabaseAPI->findUserByOpenid($openid);
-			$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
-			if (!$data) {
-				return $this->statusPrint(2, '非法请求');
-			}
-			$DatabaseAPI->updateStatusByUid($data->id);
-			$redpacket = new \Lib\RedpacketAPI();
-			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
-			return $this->statusPrint(1, '已领取');
+			// $openid = $postObj->FromUserName;
+			// $user = $DatabaseAPI->findUserByOpenid($openid);
+			// $data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
+			// if (!$data) {
+			// 	return $this->statusPrint(2, '非法请求');
+			// }
+			// $DatabaseAPI->updateStatusByUid($data->id);
+			// $redpacket = new \Lib\RedpacketAPI();
+			// $redpacket->sendredpack($user->uid, $user->openid, $data->money);
+			// return $this->statusPrint(1, '已领取');
 		}
 		exit;
 	}
