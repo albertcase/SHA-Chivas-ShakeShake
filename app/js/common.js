@@ -97,6 +97,14 @@ function gotoPin(i) {
 				}
 			}
 		},
+		alertBox:{
+			add:function(msg){
+				$('body').append('<div class="alertpop msgbox"><div class="inner"><div class="msg">'+msg+'</div><div class="btn-alert-ok">关闭</div></div></div>');
+			},
+			remove:function(){
+				$('.alertpop').remove();
+			}
+		},
 
 
 	};
@@ -104,13 +112,3 @@ function gotoPin(i) {
 	this.Common = Common;
 
 }).call(this);
-
-//Common.ajax({
-//	type:'POST',
-//	url:'/',
-//	data:{
-//		a:'a'
-//	}
-//},function(data){
-//	console.log(data);
-//});

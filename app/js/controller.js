@@ -2,8 +2,6 @@
 ;(function(){
     'use strict';
     var controller = function(){
-        this.curPage = 0;
-        this.selectedColor = '';
         this.isShake = false;
         this.mobileVal = '';
         //if submitted and record user msg, hasLogged is true
@@ -14,17 +12,16 @@
             //loading all the resourse, such as css,js,image
             var self = this;
             //    loading first
-            //$('.loading-wrap').addClass('show');
             var baseurl = ''+'/app';
             var imagesArray = [
                 baseurl + '/images/logo.png',
+                baseurl + '/images/p1-bg.jpg',
                 baseurl + '/images/p1-2.png',
                 baseurl + '/images/p1-3.png',
                 baseurl + '/images/p1-4.png',
-                baseurl + '/images/p1-bg.png',
-                baseurl + '/images/p2-bg.png',
+                baseurl + '/images/p2-bg.jpg',
                 baseurl + '/images/p2-pop-text.png',
-                baseurl + '/images/p3-bg.png',
+                baseurl + '/images/p3-bg.jpg',
                 baseurl + '/images/btn-getkeycode.png',
                 baseurl + '/images/btn-getmoney.png',
                 baseurl + '/images/button-ok.png',
@@ -50,8 +47,6 @@
 
                     //bind all dom element
                     self.bindEvent();
-
-                    //start
                     //gotoPin(0);
 
                 }
@@ -60,6 +55,7 @@
         //bind all element event,such as click, touchstart
         bindEvent:function(){
             var self = this;
+
             //age above 18, click yes, start game
             var btnYes = document.getElementsByClassName('btn-tips-yes')[0];
             btnYes.addEventListener('touchstart', function(){
@@ -141,6 +137,11 @@
             //    closePop
             document.getElementsByClassName('btn-close')[0].addEventListener('touchstart',function(){
                 Common.addClass(document.getElementsByClassName('term-pop')[0],'hide');
+            });
+
+        //    close alertbox
+            $('body').on('touchstart','.btn-alert-ok',function(){
+                Common.alertBox.remove();
             });
 
         },
@@ -246,7 +247,7 @@
                             if(data.status == 1){
                                 enableClick = true;
                             }else{
-                                alert(data.msg);
+                                Common.alertBox.add(data.msg);
                             }
 
                         });
@@ -275,9 +276,13 @@
                             code:coponCode
                         },function(data){
                             enableSubmit = true;
-                            console.log('submitWithoutChecknum');
-                            document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
-                            gotoPin(2);
+                            if(data.status == 1){
+                                document.getElementById('money-value').innerHTML = parseInt(data.msg)/100;
+                                gotoPin(2);
+                            }else{
+                                Common.alertBox.add(data.msg);
+                            }
+
                         });
                     }else{
                         // never submitted
@@ -287,12 +292,11 @@
                             code:coponCode
                         },function(data){
                             enableSubmit = true;
-                            console.log('submitAll');
                             if(data.status==1){
-                                document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
+                                document.getElementById('money-value').innerHTML = parseInt(data.msg)/100;
                                 gotoPin(2);
                             }else{
-                                alert(data.msg);
+                                Common.alertBox.add(data.msg);
                             }
                         });
 
@@ -322,18 +326,17 @@
         * */
         getRedpacket:function(){
             Api.getRedpacket({},function(data){
-                console.log(data);
                 if(data.status == 1){
                     //followed, money go ahead
                     if(data.msg=='已领取'){
-                        alert('您的红包已从芝华士官方账号推送，请注意查收');
+                        Common.alertBox.add('您的红包已从芝华士官方账号推送，请注意查收');
                     }else if(data.msg=='未领取'){
                         // not follow, qrcode first
                         Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
                     }
 
                 }else{
-                    alert(data.status);
+                    Common.alertBox.add(data.msg);
                 }
             });
         },
