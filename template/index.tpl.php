@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="/app/css/style.css">
     <!-- endinject -->
 
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?9849c8e836e12ca17f95f8eaba1ffd9d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
     <script type="text/javascript" src="http://wechatjs.curio.im/api/v1/js/a2353045-eddf-4f9c-8dd0-c69005be2e87/wechat.js"></script>
 
     <!-- inject:js -->

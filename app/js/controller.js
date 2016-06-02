@@ -122,6 +122,7 @@
             var btnGetRedpacket = document.getElementById('btn-getredpacket');
             var enableGetPacket = true;
             btnGetRedpacket.addEventListener('touchstart', function(){
+                _hmt.push(['_trackEvent', 'buttons', 'click', '领取红包']);
                 if(!enableGetPacket) return;
                 enableGetPacket = false;
                 self.getRedpacket();
@@ -262,6 +263,7 @@
             var btnSubmit = document.getElementsByClassName('btn-submit')[0];
             var enableSubmit = true;
             btnSubmit.addEventListener('touchstart',function(){
+                _hmt.push(['_trackEvent', 'buttons', 'click', '提交表单']);
                 if(self.FormKeycodeValidate()){
                     if(!enableSubmit) return;
                     enableSubmit = false;
