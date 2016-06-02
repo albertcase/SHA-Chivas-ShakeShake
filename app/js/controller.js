@@ -51,15 +51,13 @@
                     //bind all dom element
                     self.bindEvent();
 
-                    //start
-                    //gotoPin(0);
-
                 }
             })
         },
         //bind all element event,such as click, touchstart
         bindEvent:function(){
             var self = this;
+
             //age above 18, click yes, start game
             var btnYes = document.getElementsByClassName('btn-tips-yes')[0];
             btnYes.addEventListener('touchstart', function(){
@@ -141,6 +139,11 @@
             //    closePop
             document.getElementsByClassName('btn-close')[0].addEventListener('touchstart',function(){
                 Common.addClass(document.getElementsByClassName('term-pop')[0],'hide');
+            });
+
+        //    close alertbox
+            $('body').on('click','.btn-alert-ok',function(){
+                Common.alertBox.remove();
             });
 
         },
@@ -246,7 +249,7 @@
                             if(data.status == 1){
                                 enableClick = true;
                             }else{
-                                alert(data.msg);
+                                Common.alertBox.add(data.msg);
                             }
 
                         });
@@ -275,7 +278,6 @@
                             code:coponCode
                         },function(data){
                             enableSubmit = true;
-                            console.log('submitWithoutChecknum');
                             document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
                             gotoPin(2);
                         });
@@ -287,12 +289,11 @@
                             code:coponCode
                         },function(data){
                             enableSubmit = true;
-                            console.log('submitAll');
                             if(data.status==1){
                                 document.getElementById('money-value').innerHTML = parseInt(data.msg.money)/100;
                                 gotoPin(2);
                             }else{
-                                alert(data.msg);
+                                Common.alertBox.add(data.msg);
                             }
                         });
 
@@ -322,18 +323,17 @@
         * */
         getRedpacket:function(){
             Api.getRedpacket({},function(data){
-                console.log(data);
                 if(data.status == 1){
                     //followed, money go ahead
                     if(data.msg=='已领取'){
-                        alert('您的红包已从芝华士官方账号推送，请注意查收');
+                        Common.alertBox.add('您的红包已从芝华士官方账号推送，请注意查收');
                     }else if(data.msg=='未领取'){
                         // not follow, qrcode first
                         Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
                     }
 
                 }else{
-                    alert(data.status);
+                    Common.alertBox.add(data.msg);
                 }
             });
         },
