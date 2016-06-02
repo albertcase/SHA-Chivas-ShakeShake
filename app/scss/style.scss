@@ -126,64 +126,76 @@ body{
   //display: none;
   position: absolute;
   z-index: 2;
-  background: #fff;
+  background: url("../images/p1-bg.jpg") no-repeat;
+  background-size: 100% 100%;
   @include size(100%,100%);
   top: 0;
   text-align: center;
   .inner{
-    @include size(4.4rem,3rem);
+    //@include size(4.4rem,3rem);
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -1.5rem;
-    margin-left: -2.2rem;
+    @include transform(translate(-50%,-50%));
   }
   .l-logo{
-    @include size(1.89rem,0.78rem);
+    @include size(2.58rem,0.54rem);
     margin: 0 auto;
-    //@include swing($duration:1s,$count:infinite);
-    @include transform(translate(-5px));
-    @include animation(lefttoright linear 2s infinite);
-
-  }
-  .icon-loading{
-    margin:0.2rem auto;
-    span{
-      display: inline-block;
-      @include size(0.1rem,0.1rem);
-      background: #848484;
-      margin-right: 0.1rem;
-      @include vendor-prefix(border-radius,100%);
-
-      &:nth-child(1){
-        @include animation(loading 1.5s infinite);
-      }
-      &:nth-child(2){
-        @include animation(loading 1.5s infinite 0.5s);
-      }
-      &:nth-child(3){
-        @include animation(loading 1.5s infinite 1s);
-      }
-    }
-  }
-}
-@include keyframes(loading){
-  0%{
-    background: #000;
-  }
-  66%{
-    background: #848484;
-  }
-}
-@include keyframes(lefttoright){
-  0%{
-    @include transform(translate(-5px));
-  }
-  50%{
-    @include transform(translate(5px));
   }
 }
 
+.spinner {
+  margin: 0.5rem auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: #fff;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% {
+       transform: scaleY(1.0);
+       -webkit-transform: scaleY(1.0);
+     }
+}
 .wrapper{
   background: #000;
   width: 100%;
@@ -253,7 +265,7 @@ body{
 
 //for .pin-1
 .pin-1{
-  background: url("../images/p1-bg.png") no-repeat;
+  background: url("../images/p1-bg.jpg") no-repeat;
   -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   .p1-inner{
@@ -306,7 +318,7 @@ body{
 
 //for .pin-2
 .pin-2{
-  background:#0a0001 url("../images/p2-bg.png") no-repeat;
+  background:#0a0001 url("../images/p2-bg.jpg") no-repeat;
   -webkit-background-size: 100%;
   background-size: 100%;
   .logo{
@@ -408,7 +420,7 @@ select:-webkit-autofill {
 
 //for pin-3
 .pin-3{
-  background:#3b0f14 url("../images/p3-bg.png") no-repeat;
+  background:#3b0f14 url("../images/p3-bg.jpg") no-repeat;
   -webkit-background-size: 100%;
   background-size: 100%;
   .p3-t1{

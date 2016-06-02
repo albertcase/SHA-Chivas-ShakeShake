@@ -17,19 +17,20 @@
     <!-- endinject -->
 </head>
 <body>
-<div class="preloading hide">
+<div class="preloading">
     <div class="inner">
         <div class="l-logo">
             <img src="/app/images/logo.png" alt=""/>
         </div>
-        <div class="icon-loading">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
         </div>
         <p class="des-loading">
-            目前涌入的小伙伴过多<br>
-            页面正在跳转中，请耐心等待。
+            页面加载中，请稍后...
         </p>
     </div>
 </div>

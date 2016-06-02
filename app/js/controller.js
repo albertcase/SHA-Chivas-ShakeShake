@@ -15,13 +15,13 @@
             var baseurl = ''+'/app';
             var imagesArray = [
                 baseurl + '/images/logo.png',
+                baseurl + '/images/p1-bg.jpg',
                 baseurl + '/images/p1-2.png',
                 baseurl + '/images/p1-3.png',
                 baseurl + '/images/p1-4.png',
-                baseurl + '/images/p1-bg.png',
-                baseurl + '/images/p2-bg.png',
+                baseurl + '/images/p2-bg.jpg',
                 baseurl + '/images/p2-pop-text.png',
-                baseurl + '/images/p3-bg.png',
+                baseurl + '/images/p3-bg.jpg',
                 baseurl + '/images/btn-getkeycode.png',
                 baseurl + '/images/btn-getmoney.png',
                 baseurl + '/images/button-ok.png',
