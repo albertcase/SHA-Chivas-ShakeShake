@@ -140,7 +140,7 @@
             });
 
         //    close alertbox
-            $('body').on('click','.btn-alert-ok',function(){
+            $('body').on('touchstart','.btn-alert-ok',function(){
                 Common.alertBox.remove();
             });
 
