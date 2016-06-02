@@ -94,6 +94,8 @@ class ApiController extends Controller {
 		unset($_SESSION['msg_code']);
 		//纪录手机号
 		$DatabaseAPI->saveMobile($user->uid, $mobile);
+		$user->mobile = $mobile;
+		$_SESSION['user'] = $user;
 		$money = rand(100 , 200);
 		$DatabaseAPI->saveMoney($codeInfo->id, $user->uid, $money, 0);
 		return $this->statusPrint(1, $money);
