@@ -47,7 +47,7 @@
 
                     //bind all dom element
                     self.bindEvent();
-                    //gotoPin(0);
+                    //gotoPin(2);
 
                 }
             })
@@ -122,6 +122,7 @@
             var btnGetRedpacket = document.getElementById('btn-getredpacket');
             var enableGetPacket = true;
             btnGetRedpacket.addEventListener('touchstart', function(){
+                _hmt.push(['_trackEvent', 'buttons', 'click', '领取红包']);
                 if(!enableGetPacket) return;
                 enableGetPacket = false;
                 self.getRedpacket();
@@ -235,8 +236,7 @@
                 e.preventDefault();
                 if(self.MobileValidate()){
                     //    start to get keycode
-                    //$('.btn-getkeycode').addClass('disabled');
-                    //if(!enableClick) return;
+                    if(!enableClick) return;
                     enableClick = false;
                     var mobile = inpueMobile.value;
                     if(!Common.hasClass(btnGetKeycode,'countdown')){
@@ -244,8 +244,9 @@
                         Api.getKeycode({
                             mobile:mobile
                         },function(data){
+                            enableClick = true;
                             if(data.status == 1){
-                                enableClick = true;
+                                Common.alertBox.add('短信发送成功，请注意查收');
                             }else{
                                 Common.alertBox.add(data.msg);
                             }
@@ -262,6 +263,7 @@
             var btnSubmit = document.getElementsByClassName('btn-submit')[0];
             var enableSubmit = true;
             btnSubmit.addEventListener('touchstart',function(){
+                _hmt.push(['_trackEvent', 'buttons', 'click', '提交表单']);
                 if(self.FormKeycodeValidate()){
                     if(!enableSubmit) return;
                     enableSubmit = false;
@@ -327,14 +329,7 @@
         getRedpacket:function(){
             Api.getRedpacket({},function(data){
                 if(data.status == 1){
-                    //followed, money go ahead
-                    if(data.msg=='已领取'){
-                        Common.alertBox.add('您的红包已从芝华士官方账号推送，请注意查收');
-                    }else if(data.msg=='未领取'){
-                        // not follow, qrcode first
-                        Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
-                    }
-
+                    Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
                 }else{
                     Common.alertBox.add(data.msg);
                 }
@@ -368,7 +363,7 @@
 
 }).call(this);
 
-window.onload = function(){
+window.addEventListener('load', function(){
     var redpacket= new controller();
     redpacket.init();
-};
+});
