@@ -22,7 +22,7 @@ class RedpacketAPI extends Base {
             
             'total_amount' => $money,
             'total_num' => '1',
-            'wishing' => '芝华士祝您大吉大利',
+            'wishing' => '感谢您对芝华士的厚爱',
             'client_ip' => '123.59.150.53',
             'act_name' => '芝华士红包',
             'remark' => '恭喜发财大吉大利',
