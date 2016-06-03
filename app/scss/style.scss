@@ -46,24 +46,24 @@
   100% {opacity:1;}
 }
 .delay1{
+  animation-delay: 400ms;
+  -webkit-animation-delay: 400ms;
+}
+.delay2{
   animation-delay: 800ms;
   -webkit-animation-delay: 800ms;
 }
-.delay2{
+.delay3{
+  animation-delay: 1200ms;
+  -webkit-animation-delay: 1200ms;
+}
+.delay4{
   animation-delay: 1600ms;
   -webkit-animation-delay: 1600ms;
 }
-.delay3{
-  animation-delay: 2400ms;
-  -webkit-animation-delay: 2400ms;
-}
-.delay4{
-  animation-delay: 3200ms;
-  -webkit-animation-delay: 3200ms;
-}
 .delay5{
-  animation-delay: 4000ms;
-  -webkit-animation-delay: 4000ms;
+  animation-delay: 2000ms;
+  -webkit-animation-delay: 2000ms;
 }
 
 strong{
@@ -214,10 +214,6 @@ body{
   left: 0;
   top: 0;
 }
-//.logo{
-//  @include size(2.75rem,1.02rem);
-//  margin: 0.45rem auto 0rem;
-//}
 
 //for pin
 .pin {
@@ -322,7 +318,7 @@ body{
   background-size: 100%;
   .logo{
     @include size(2.58rem,0.54rem);
-    margin: 1rem auto 0.9rem;
+    margin: 0.7rem auto;
   }
   .p2-footer{
     position: absolute;

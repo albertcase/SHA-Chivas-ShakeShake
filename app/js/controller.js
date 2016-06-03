@@ -47,7 +47,7 @@
 
                     //bind all dom element
                     self.bindEvent();
-                    //gotoPin(0);
+                    //gotoPin(2);
 
                 }
             })
@@ -236,8 +236,7 @@
                 e.preventDefault();
                 if(self.MobileValidate()){
                     //    start to get keycode
-                    //$('.btn-getkeycode').addClass('disabled');
-                    //if(!enableClick) return;
+                    if(!enableClick) return;
                     enableClick = false;
                     var mobile = inpueMobile.value;
                     if(!Common.hasClass(btnGetKeycode,'countdown')){
@@ -245,8 +244,9 @@
                         Api.getKeycode({
                             mobile:mobile
                         },function(data){
+                            enableClick = true;
                             if(data.status == 1){
-                                enableClick = true;
+                                Common.alertBox.add('短信发送成功，请注意查收');
                             }else{
                                 Common.alertBox.add(data.msg);
                             }
