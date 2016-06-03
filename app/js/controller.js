@@ -329,14 +329,7 @@
         getRedpacket:function(){
             Api.getRedpacket({},function(data){
                 if(data.status == 1){
-                    //followed, money go ahead
-                    if(data.msg=='已领取'){
-                        Common.alertBox.add('您的红包已从芝华士官方账号推送，请注意查收');
-                    }else if(data.msg=='未领取'){
-                        // not follow, qrcode first
-                        Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
-                    }
-
+                    Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
                 }else{
                     Common.alertBox.add(data.msg);
                 }
@@ -370,7 +363,7 @@
 
 }).call(this);
 
-window.onload = function(){
+window.addEventListener('load', function(){
     var redpacket= new controller();
     redpacket.init();
-};
+});
