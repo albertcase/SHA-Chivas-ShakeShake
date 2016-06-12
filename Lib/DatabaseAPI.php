@@ -241,6 +241,24 @@ class DatabaseAPI extends Base {
 			return FALSE;
 		}
 	}
+
+	public function runCode($number) {
+		$str = '346789ABCDEFGHJKLMNPQRTUVWXY';
+		for( $j = 0; $j < $number; $j++ ){
+			$pb = '';
+			for( $i = 0; $i < 5; $i++ ){
+				$randval = mt_rand(0, 27);
+				$pb .= $str[$randval];
+			}
+			$sql = "INSERT INTO trio_code_copy (code) VALUES (?)";
+			$res = $this->db->prepare($sql);
+			$res->bind_param("s", $mobile, $pb);
+			if (!$res->execute()) {
+				$j--;
+			}
+		}
+		return $j;
+	}
 	
 
 }

@@ -7,8 +7,9 @@ use Core\Controller;
 class ApiController extends Controller {
 
 	public function testAction() {
-		 $redpacket = new \Lib\RedpacketAPI();
-		 $redpacket->sendredpack('o3vWouHPZ73bIf5jyIZ9xea9fEfg');
+		$databaseAPI = new \Lib\DatabaseAPI();
+		echo $number = $databaseAPI->runCode(75620);
+
 		exit;
 	}
 
