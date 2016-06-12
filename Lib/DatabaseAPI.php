@@ -250,7 +250,7 @@ class DatabaseAPI extends Base {
 				$randval = mt_rand(0, 27);
 				$pb .= $str[$randval];
 			}
-			$sql = "INSERT INTO trio_code_copy (code) VALUES (?)";
+			$sql = "INSERT INTO chivas_code_copy (code) VALUES (?)";
 			$res = $this->db->prepare($sql);
 			$res->bind_param("s", $pb);
 			if (!$res->execute()) {
