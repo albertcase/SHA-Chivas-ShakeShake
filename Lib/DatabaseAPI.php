@@ -252,7 +252,7 @@ class DatabaseAPI extends Base {
 			}
 			$sql = "INSERT INTO trio_code_copy (code) VALUES (?)";
 			$res = $this->db->prepare($sql);
-			$res->bind_param("s", $mobile, $pb);
+			$res->bind_param("s", $pb);
 			if (!$res->execute()) {
 				$j--;
 			}
