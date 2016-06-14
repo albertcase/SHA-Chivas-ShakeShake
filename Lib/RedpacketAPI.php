@@ -24,8 +24,8 @@ class RedpacketAPI extends Base {
             'total_num' => '1',
             'wishing' => '感谢您对芝华士的厚爱',
             'client_ip' => '123.59.150.53',
-            'act_name' => '芝华士红包',
-            'remark' => '恭喜发财大吉大利',
+            'act_name' => '芝华士礼遇厚爱',
+            'remark' => '感谢您对芝华士的厚爱',
         );
         $data['sign'] = $this->sign($data);
         $postData = '<xml>
