@@ -105,13 +105,6 @@
                 self.isShake = false;
             }, false);
 
-            //test shake function
-            document.getElementsByClassName('btn-open')[0].addEventListener('touchstart', function(){
-                if(!self.isShake) return;
-                self.shake();
-                self.isShake = false;
-            });
-
             //check if shake is supported or not.
             if(!("ondevicemotion" in window)){alert("Not Supported");}
 
@@ -120,12 +113,10 @@
 
             //    getRedpacket
             var btnGetRedpacket = document.getElementById('btn-getredpacket');
-            var enableGetPacket = true;
+            //var enableGetPacket = true;
             btnGetRedpacket.addEventListener('touchstart', function(){
                 _hmt.push(['_trackEvent', 'buttons', 'click', '领取红包']);
-                if(!enableGetPacket) return;
-                enableGetPacket = false;
-                self.getRedpacket();
+                Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
             });
 
             //show the privacy pop
