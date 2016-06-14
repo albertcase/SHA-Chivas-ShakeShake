@@ -154,6 +154,21 @@ class CurioController extends Controller {
 			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
 			return $this->statusPrint(1, '已领取');
 		}
+		if ($postObj->EventKey == '76123') {
+			$DatabaseAPI = new \Lib\DatabaseAPI();
+			$DatabaseAPI->saveScan($data, 2);
+
+			$openid = $postObj->FromUserName;
+			$user = $DatabaseAPI->findUserByOpenid($openid);
+			$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
+			if (!$data) {
+				return $this->statusPrint(2, '非法请求');
+			}
+			$DatabaseAPI->updateStatusByUid($data->id);
+			$redpacket = new \Lib\RedpacketAPI();
+			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
+			return $this->statusPrint(1, '已领取');
+		}
 		exit;
 	}
 
@@ -161,20 +176,20 @@ class CurioController extends Controller {
 		//exit;	
 		$data = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$postObj = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-		if ($postObj->EventKey == '11566') {
+		if ($postObj->EventKey == '76123') {
 			$DatabaseAPI = new \Lib\DatabaseAPI();
 			$DatabaseAPI->saveScan($data, 2);
 
-			// $openid = $postObj->FromUserName;
-			// $user = $DatabaseAPI->findUserByOpenid($openid);
-			// $data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
-			// if (!$data) {
-			// 	return $this->statusPrint(2, '非法请求');
-			// }
-			// $DatabaseAPI->updateStatusByUid($data->id);
-			// $redpacket = new \Lib\RedpacketAPI();
-			// $redpacket->sendredpack($user->uid, $user->openid, $data->money);
-			// return $this->statusPrint(1, '已领取');
+			$openid = $postObj->FromUserName;
+			$user = $DatabaseAPI->findUserByOpenid($openid);
+			$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
+			if (!$data) {
+				return $this->statusPrint(2, '非法请求');
+			}
+			$DatabaseAPI->updateStatusByUid($data->id);
+			$redpacket = new \Lib\RedpacketAPI();
+			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
+			return $this->statusPrint(1, '已领取');
 		}
 		exit;
 	}
