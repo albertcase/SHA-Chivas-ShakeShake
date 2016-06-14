@@ -105,13 +105,6 @@
                 self.isShake = false;
             }, false);
 
-            //test shake function
-            document.getElementsByClassName('btn-open')[0].addEventListener('touchstart', function(){
-                if(!self.isShake) return;
-                self.shake();
-                self.isShake = false;
-            });
-
             //check if shake is supported or not.
             if(!("ondevicemotion" in window)){alert("Not Supported");}
 
