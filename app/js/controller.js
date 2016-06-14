@@ -120,12 +120,10 @@
 
             //    getRedpacket
             var btnGetRedpacket = document.getElementById('btn-getredpacket');
-            var enableGetPacket = true;
+            //var enableGetPacket = true;
             btnGetRedpacket.addEventListener('touchstart', function(){
                 _hmt.push(['_trackEvent', 'buttons', 'click', '领取红包']);
-                if(!enableGetPacket) return;
-                enableGetPacket = false;
-                self.getRedpacket();
+                Common.removeClass(document.getElementsByClassName('qrcode-pop')[0],'hide');
             });
 
             //show the privacy pop
