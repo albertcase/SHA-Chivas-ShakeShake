@@ -76,13 +76,14 @@
                 <input type="text" class="input-coupon" id="input-coupon" placeholder="输入刮刮卡兑换码"/>
             </div>
         </form>
-        <div class="p2-footer">
-            <div class="btn-submit">
-                <img src="/app/images/button-ok.png" alt=""/>
-            </div>
-            <div class="privacy-term">
-                <img src="/app/images/link-privacy.png" alt=""/>
-            </div>
+        <div class="btn-submit">
+            <img src="/app/images/button-ok.png" alt=""/>
+        </div>
+        <div class="privacy-term">
+            <img src="/app/images/link-privacy.png" alt=""/>
+        </div>
+        <div class="tips-text">
+            <img src="/app/images/tips-text.png" alt=""/>
         </div>
         <div class="term-pop hide">
             <div class="term-text">
@@ -95,13 +96,19 @@
         </div>
     </section>
 
+
     <!-- 验证成功后看到获得金额 -->
     <section class="pin pin-3">
-        <div class="p3-t1">
-            <span id="money-value"></span>
-        </div>
-        <div class="btn btn-get" id="btn-getredpacket">
-            <img src="/app/images/btn-getmoney.png" alt=""/>
+        <div class="inner">
+            <div class="logo">
+                <img src="/app/images/logo.png" alt=""/>
+            </div>
+            <div class="p3-t1">
+                <span id="money-value"></span>
+            </div>
+            <div class="btn btn-get" id="btn-getredpacket">
+                <img src="/app/images/btn-getmoney.png" alt=""/>
+            </div>
         </div>
     </section>
 </div>

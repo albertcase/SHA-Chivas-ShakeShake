@@ -264,7 +264,7 @@ body{
   -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   .p1-inner{
-    @include size(6.38rem,8.52rem);
+    @include size(6.35rem,8.95rem);
     background: url("../images/p1-2.png") no-repeat;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
@@ -320,17 +320,26 @@ body{
     @include size(2.58rem,0.54rem);
     margin: 0.7rem auto;
   }
-  .p2-footer{
-    position: absolute;
-    bottom: 0.8rem;
-    width: 100%;
-    left: 0;
-  }
   .btn-submit{
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    margin-left: -1rem;
+    z-index: 3;
     @include size(2rem,0.6rem);
-    margin: 0 auto 0.4rem;
+  }
+  .tips-text{
+    position: absolute;
+    left: 0.2rem;
+    bottom: 0.2rem;
+    z-index: 2;
+    @include size(1.91rem,0.29rem);
   }
   .privacy-term{
+    position: absolute;
+    right: 0.2rem;
+    bottom: 0.2rem;
+    z-index: 2;
     @include size(2.52rem,0.27rem);
     margin: 0 auto;
   }
@@ -416,12 +425,26 @@ select:-webkit-autofill {
 
 //for pin-3
 .pin-3{
-  background:#3b0f14 url("../images/p3-bg.jpg") no-repeat;
+  background:#1d0304 url("../images/p1-bg.jpg") no-repeat;
   -webkit-background-size: 100%;
   background-size: 100%;
+  .inner{
+    @include size(6.36rem,11.05rem);
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%,-50%));
+    background:url("../images/p3-2.png") no-repeat;
+    background-size: 100%;
+  }
+  .logo{
+    @include size(2.58rem,0.54rem);
+    margin: 1.5rem auto;
+  }
   .p3-t1{
     @include size(3.57rem,2.28rem);
-    margin: 4rem auto 2.5rem;
+    margin: 3rem auto 1.5rem;
     background: url("../images/money.png") no-repeat;
     background-size: 100%;
     #money-value{
@@ -430,14 +453,14 @@ select:-webkit-autofill {
       font-weight: normal;
       display: inline-block;
       padding-right: 0.3rem;
-      padding-top: 0.5rem;
+      padding-top: 0.6rem;
       text-shadow: #77160a 0px 3px 1px;
       background: url("../images/yuan.png") right 1.4rem no-repeat;
       background-size: 0.32rem;
     }
   }
   .btn-get{
-    @include size(2.52rem,0.6rem);
+    @include size(2.03rem,0.92rem);
     margin: 0 auto 0.2rem;
   }
 }
