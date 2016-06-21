@@ -4,13 +4,13 @@ namespace Lib;
 class AcxiomAPI extends Base {
 
 	//public $apiUrl = 'https://uat10.acxiom.com.cn';
-    //public $apiUrl = 'https://uat01.acxiom.com.cn/PRC/rest/customer/dataCollect';
-    public $apiUrl = 'http://www.baidu.com';
+    public $apiUrl = 'https://uat01.acxiom.com.cn/PRC/rest/customer/dataCollect';
+    //public $apiUrl = 'http://www.baidu.com';
     public function sendLog(){
         //$start = $this->getMillisecond();
         $ws = $this->apiUrl;
         $ts = time();
-        $sign = md5(md5("PRC".$ts).$ts);
+        echo $sign = md5(md5("PRC".$ts).$ts);
         $data = array(
             'ts' => $ts,
             'sign' => $sign,
