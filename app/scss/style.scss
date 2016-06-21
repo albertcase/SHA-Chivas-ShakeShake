@@ -466,10 +466,10 @@ select:-webkit-autofill {
 }
 .qrcode-pop{
   &.popup{
-    width: 80%;
+    width: 88%;
     height: 80%;
     top: 10%;
-    left: 10%;
+    left: 6%;
   }
   .qrcode{
     @include size(2.4rem,2.4rem);
