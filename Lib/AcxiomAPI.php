@@ -22,7 +22,15 @@ class AcxiomAPI extends Base {
             'preferredDrinkingPlace' => '20015',
             'storeCode' => 'SH01'
         );
-        $result = $this->postAcxiomData($ws, json_encode($data));
+        //$result = $this->postAcxiomData($ws, json_encode($data));
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ws);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json; charset=utf-8"));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        $result = curl_exec($ch);
+        curl_close($ch);
         var_dump($result);
         echo "<pre>";
         print_r($data);
