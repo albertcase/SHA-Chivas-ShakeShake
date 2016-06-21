@@ -7,9 +7,10 @@ use Core\Controller;
 class ApiController extends Controller {
 
 	public function testAction() {
-		$databaseAPI = new \Lib\DatabaseAPI();
-		echo $number = $databaseAPI->runCode(75620);
-
+		//$databaseAPI = new \Lib\DatabaseAPI();
+		//echo $number = $databaseAPI->runCode(75620);
+		$RedisAPI = new \Lib\AcxiomAPI();
+		$RedisAPI->sendLog();
 		exit;
 	}
 

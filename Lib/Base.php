@@ -22,6 +22,20 @@ class Base {
 		return json_decode($data);
 	}	
 
+	protected function postAcxiomData($url, $post_json) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
+		//curl_setopt($ch, CURLOPT_SSLCERT,'/data/webown/sites/cert/acxiom.crt');
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json; charset=utf-8"));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_json);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return $data;
+	}
+
 	protected function postSSLData($url, $postData) {
 		$ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
