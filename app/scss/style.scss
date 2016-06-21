@@ -98,7 +98,7 @@ img{
     position: absolute;
     left: 0;
     top: 0.4rem;
-    background: #c0a176;
+    background: #896e4c;
     @include transform(rotate(45deg));
   }
   &:before{
@@ -109,7 +109,7 @@ img{
     position: absolute;
     left: 0;
     top: 0.4rem;
-    background: #c0a176;
+    background: #896e4c;
     @include transform(rotate(-45deg));
   }
 
