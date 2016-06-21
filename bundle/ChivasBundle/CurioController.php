@@ -139,8 +139,6 @@ class CurioController extends Controller {
 		//exit;	
 		$data = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$postObj = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-		$DatabaseAPI = new \Lib\DatabaseAPI();
-		$DatabaseAPI->saveScan($data, 1);
 		if ($postObj->EventKey == 'qrscene_76123') {
 			$DatabaseAPI = new \Lib\DatabaseAPI();
 			$DatabaseAPI->saveScan($data, 1);
