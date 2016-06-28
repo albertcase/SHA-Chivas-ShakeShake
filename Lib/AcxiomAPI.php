@@ -22,10 +22,7 @@ class AcxiomAPI extends Base {
             'storeCode' =>  $storeCode
         );
         $result = $this->postAcxiomData($ws, json_encode($data));
-        var_dump($result);
-        echo "<pre>";
-        print_r($data);
-        exit;
+        return $result;
     }
 
     public function getMillisecond() {

@@ -10,7 +10,13 @@ class ApiController extends Controller {
 		//$databaseAPI = new \Lib\DatabaseAPI();
 		//echo $number = $databaseAPI->runCode(75620);
 		$RedisAPI = new \Lib\AcxiomAPI();
+		echo "<pre>";
 		$rs = $RedisAPI->sendLog('0461efd4bb1fa3ccc72b96cbd8eccfd4', '123', '15121038676', '上海', '20015', 'SH01');
+		var_dump($rs);
+		$rs = $RedisAPI->sendLog('13518913f848630550294752ea784b24', '456', '15121038676', '上海', '20015', 'SH02');
+		var_dump($rs);
+		$rs = $RedisAPI->sendLog('268b040fe2e264e089b0f905a23d448d', '789', '15121038676', '上海', '20016', 'SH03');
+		var_dump($rs);
 		exit;
 	}
 

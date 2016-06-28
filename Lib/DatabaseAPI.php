@@ -140,14 +140,16 @@ class DatabaseAPI extends Base {
 	}
 
 	public function loadStatusAndMoneyByUid($uid) {
-		$sql = "SELECT id, money FROM `chivas_code` WHERE `uid` = ? and status = 0"; 
+		$sql = "SELECT id, city, storenum, money FROM `chivas_code` WHERE `uid` = ? and status = 0"; 
 		$res = $this->db->prepare($sql);
 		$res->bind_param("s", $uid);
 		$res->execute();
-		$res->bind_result($id, $money);
+		$res->bind_result($id, $city, $storenum, $money);
 		if($res->fetch()) {
 			$data = new \stdClass();
 			$data->id = $id;
+			$data->city = $city;
+			$data->storenum = $storenum;
 			$data->money = $money;
 			return $data;
 		}

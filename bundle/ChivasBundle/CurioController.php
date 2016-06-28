@@ -152,6 +152,13 @@ class CurioController extends Controller {
 			$DatabaseAPI->updateStatusByUid($data->id);
 			$redpacket = new \Lib\RedpacketAPI();
 			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
+			if ($data->id <= 26560) {
+				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+			} else {
+				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+			}
+			$RedisAPI = new \Lib\AcxiomAPI();
+			$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
 			return $this->statusPrint(1, '已领取');
 		}
 		if ($postObj->EventKey == '76123') {
@@ -167,6 +174,13 @@ class CurioController extends Controller {
 			$DatabaseAPI->updateStatusByUid($data->id);
 			$redpacket = new \Lib\RedpacketAPI();
 			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
+			if ($data->id <= 26560) {
+				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+			} else {
+				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+			}
+			$RedisAPI = new \Lib\AcxiomAPI();
+			$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
 			return $this->statusPrint(1, '已领取');
 		}
 		exit;
