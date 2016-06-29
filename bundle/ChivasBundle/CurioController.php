@@ -155,7 +155,7 @@ class CurioController extends Controller {
 			if ($data->id <= 26560) {
 				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
 			} else {
-				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+				$source_name = '13518913f848630550294752ea784b24';
 			}
 			$RedisAPI = new \Lib\AcxiomAPI();
 			$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
@@ -177,7 +177,7 @@ class CurioController extends Controller {
 			if ($data->id <= 26560) {
 				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
 			} else {
-				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+				$source_name = '13518913f848630550294752ea784b24';
 			}
 			$RedisAPI = new \Lib\AcxiomAPI();
 			$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
