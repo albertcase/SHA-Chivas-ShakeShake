@@ -116,6 +116,22 @@ class DatabaseAPI extends Base {
 		return 0;
 	}
 
+	public function loadMoneyCount($id, $money) {
+		if ( $id <= 26560 ) {
+			$where = "id <= 26560";
+		} else {
+			$where = "id > 26560";
+		}
+		$sql = "SELECT count(id) FROM `chivas_info` where money = $money and $where"; 
+		$res = $this->db->prepare($sql);
+		$res->execute();
+		$res->bind_result($num);
+		if($res->fetch()) {
+			return $num;
+		}
+		return 0;
+	}
+
 	public function saveMoney($id, $uid, $money, $status) {
 		$sql = "UPDATE `chivas_code` SET `uid` = ?, `money` = ?, `status` = ? WHERE `id` = ?";
 		$res = $this->db->prepare($sql); 
