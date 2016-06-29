@@ -181,8 +181,50 @@ class ApiController extends Controller {
 		//销毁验证码
 		unset($_SESSION['msg_time']);
 		unset($_SESSION['msg_code']);
-		$money = rand(100 , 200);
-		//$money = 100;
+		if ( $codeInfo->id <= 26560 ) {
+			//bar
+			$rand = rand(1 , 26560);
+			if ( $rand <= 70 ) {
+				$money = 10000;
+				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 10000);
+				if ($count >= 70) {
+					$money = 500;
+				}
+			} else if ( $rand > 70 && $rand <= 180 ) {
+				$money = 1000;
+				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 1000);
+				if ($count >= 110) {
+					$money = 500;
+				}
+			} else {
+				$money = 500;
+			}
+
+		} else {
+			//ktv
+			$rand = rand(1 , 49060);
+			if ( $rand <= 1000 ) {
+				$money = 10000;
+				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 10000);
+				if ($count >= 1000) {
+					$money = 500;
+				}
+			} else if ( $rand > 1000 && $rand <= 3000 ) {
+				$money = 5000;
+				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 5000);
+				if ($count >= 2000) {
+					$money = 500;
+				}
+			} else if ( $rand > 3000 && $rand <= 8000 ) {
+				$money = 2000;
+				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 2000);
+				if ($count >= 5000) {
+					$money = 500;
+				}
+			} else {
+				$money = 1000;
+			}
+		}
 		$DatabaseAPI->saveMoney($codeInfo->id, $user->uid, $money, 0);
 		return $this->statusPrint(1, $money);
 	}
