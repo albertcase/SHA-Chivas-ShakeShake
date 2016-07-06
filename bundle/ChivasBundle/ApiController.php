@@ -204,25 +204,25 @@ class ApiController extends Controller {
 			//ktv
 			$rand = rand(1 , 49060);
 			if ( $rand <= 1000 ) {
-				$money = 10000;
-				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 10000);
-				if ($count >= 1000) {
-					$money = 500;
-				}
-			} else if ( $rand > 1000 && $rand <= 3000 ) {
 				$money = 5000;
 				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 5000);
-				if ($count >= 2000) {
-					$money = 500;
+				if ($count >= 1000) {
+					$money = 600;
 				}
-			} else if ( $rand > 3000 && $rand <= 8000 ) {
+			} else if ( $rand > 1000 && $rand <= 3000 ) {
 				$money = 2000;
 				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 2000);
-				if ($count >= 5000) {
-					$money = 500;
+				if ($count >= 2000) {
+					$money = 600;
+				}
+			} else if ( $rand > 3000 && $rand <= 7000 ) {
+				$money = 1000;
+				$count = $DatabaseAPI->loadMoneyCount($codeInfo->id, 1000);
+				if ($count >= 4000) {
+					$money = 600;
 				}
 			} else {
-				$money = 1000;
+				$money = 600;
 			}
 		}
 		$DatabaseAPI->saveMoney($codeInfo->id, $user->uid, $money, 0);
