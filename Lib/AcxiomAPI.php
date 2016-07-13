@@ -4,8 +4,9 @@ namespace Lib;
 class AcxiomAPI extends Base {
 
 	//public $apiUrl = 'https://uat10.acxiom.com.cn';
-    public $apiUrl = 'https://uat01.acxiom.com.cn/PRC/rest/customer/dataCollect';
-    //public $apiUrl = 'https://prcws.acxiom.com.cn/PRC/rest/customer/dataCollect';
+    //public $apiUrl = 'https://uat01.acxiom.com.cn/PRC/rest/customer/dataCollect';
+    public $apiUrl = 'https://prcws.acxiom.com.cn/PRC/rest/customer/dataCollect';
+    
     public function sendLog($source_name, $openid, $cellphone, $city, $preferredDrinkingPlace, $storeCode){
         //$start = $this->getMillisecond();
         $ws = $this->apiUrl;
