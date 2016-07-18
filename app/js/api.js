@@ -30,24 +30,28 @@ Api = {
     },
     //mobile checknum  code
     submitAll:function(obj,callback){
+        Common.msgBox('loading...');
         $.ajax({
             url:'/api/submit',
             type:'POST',
             dataType:'json',
             data:obj,
             success:function(data){
+                $('.msgbox').remove();
                 return callback(data);
             }
         });
     },
     //mobile code
     submitWithoutChecknum:function(obj,callback){
+        Common.msgBox('loading...');
         $.ajax({
             url:'/api/submit2',
             type:'POST',
             dataType:'json',
             data:obj,
             success:function(data){
+                $('.msgbox').remove();
                 return callback(data);
             }
         });
