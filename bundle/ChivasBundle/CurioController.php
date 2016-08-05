@@ -136,54 +136,56 @@ class CurioController extends Controller {
 	}
 
 	public function qrcodeAction() {
-		//exit;	
-		$data = $GLOBALS['HTTP_RAW_POST_DATA'];
-		$postObj = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-		if ($postObj->EventKey == 'qrscene_76123') {
-			$DatabaseAPI = new \Lib\DatabaseAPI();
-			$DatabaseAPI->saveScan($data, 1);
-			
-			$openid = $postObj->FromUserName;
-			$user = $DatabaseAPI->findUserByOpenid($openid);
-			$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
-			if (!$data) {
-				return $this->statusPrint(2, '非法请求');
+		//exit;
+		if (isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
+			$data = $GLOBALS['HTTP_RAW_POST_DATA'];
+			$postObj = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
+			if ($postObj->EventKey == 'qrscene_76123') {
+				$DatabaseAPI = new \Lib\DatabaseAPI();
+				$DatabaseAPI->saveScan($data, 1);
+				
+				$openid = $postObj->FromUserName;
+				$user = $DatabaseAPI->findUserByOpenid($openid);
+				$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
+				if (!$data) {
+					return $this->statusPrint(2, '无领取纪录');
+				}
+				$DatabaseAPI->updateStatusByUid($data->id);
+				$redpacket = new \Lib\RedpacketAPI();
+				$redpacket->sendredpack($user->uid, $user->openid, $data->money);
+				if ($data->id <= 26560) {
+					$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+				} else {
+					$source_name = '13518913f848630550294752ea784b24';
+				}
+				$RedisAPI = new \Lib\AcxiomAPI();
+				$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
+				return $this->statusPrint(1, '已领取');
 			}
-			$DatabaseAPI->updateStatusByUid($data->id);
-			$redpacket = new \Lib\RedpacketAPI();
-			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
-			if ($data->id <= 26560) {
-				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
-			} else {
-				$source_name = '13518913f848630550294752ea784b24';
-			}
-			$RedisAPI = new \Lib\AcxiomAPI();
-			$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
-			return $this->statusPrint(1, '已领取');
-		}
-		if ($postObj->EventKey == '76123') {
-			$DatabaseAPI = new \Lib\DatabaseAPI();
-			$DatabaseAPI->saveScan($data, 2);
+			if ($postObj->EventKey == '76123') {
+				$DatabaseAPI = new \Lib\DatabaseAPI();
+				$DatabaseAPI->saveScan($data, 2);
 
-			$openid = $postObj->FromUserName;
-			$user = $DatabaseAPI->findUserByOpenid($openid);
-			$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
-			if (!$data) {
-				return $this->statusPrint(2, '非法请求');
+				$openid = $postObj->FromUserName;
+				$user = $DatabaseAPI->findUserByOpenid($openid);
+				$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
+				if (!$data) {
+					return $this->statusPrint(2, '无领取纪录');
+				}
+				$DatabaseAPI->updateStatusByUid($data->id);
+				$redpacket = new \Lib\RedpacketAPI();
+				$redpacket->sendredpack($user->uid, $user->openid, $data->money);
+				if ($data->id <= 26560) {
+					$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
+				} else {
+					$source_name = '13518913f848630550294752ea784b24';
+				}
+				$RedisAPI = new \Lib\AcxiomAPI();
+				$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
+				return $this->statusPrint(1, '已领取');
 			}
-			$DatabaseAPI->updateStatusByUid($data->id);
-			$redpacket = new \Lib\RedpacketAPI();
-			$redpacket->sendredpack($user->uid, $user->openid, $data->money);
-			if ($data->id <= 26560) {
-				$source_name = '0461efd4bb1fa3ccc72b96cbd8eccfd4';
-			} else {
-				$source_name = '13518913f848630550294752ea784b24';
-			}
-			$RedisAPI = new \Lib\AcxiomAPI();
-			$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
-			return $this->statusPrint(1, '已领取');
 		}
-		exit;
+		return $this->statusPrint(3, '无请求信息');
 	}
 
 	public function scanAction() {
