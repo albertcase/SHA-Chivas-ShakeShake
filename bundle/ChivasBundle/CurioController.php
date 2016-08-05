@@ -184,6 +184,7 @@ class CurioController extends Controller {
 				$RedisAPI->sendLog($source_name, $user->openid, $user->mobile, $data->city, '20015', $data->storenum);
 				return $this->statusPrint(1, '已领取');
 			}
+			return $this->statusPrint(4, '二维码场景值不正确');
 		}
 		return $this->statusPrint(3, '无请求信息');
 	}
