@@ -146,6 +146,9 @@ class CurioController extends Controller {
 				
 				$openid = $postObj->FromUserName;
 				$user = $DatabaseAPI->findUserByOpenid($openid);
+				if (!$user) {
+					return $this->statusPrint(5, '无该用户信息');
+				}
 				$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
 				if (!$data) {
 					return $this->statusPrint(2, '无领取纪录');
@@ -168,6 +171,9 @@ class CurioController extends Controller {
 
 				$openid = $postObj->FromUserName;
 				$user = $DatabaseAPI->findUserByOpenid($openid);
+				if (!$user) {
+					return $this->statusPrint(5, '无该用户信息');
+				}
 				$data = $DatabaseAPI->loadStatusAndMoneyByUid($user->uid);
 				if (!$data) {
 					return $this->statusPrint(2, '无领取纪录');
