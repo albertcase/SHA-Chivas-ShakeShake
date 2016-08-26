@@ -169,6 +169,9 @@ class ApiController extends Controller {
 		$request->validation($fields);
 		$mobile = $request->request->get('mobile');
 		$code = $request->request->get('code');
+		if (in_array($mobile, array("15056787724", "15121038676"))) {
+			return $this->statusPrint(7, '该手机号无法获取红包');
+		}
 		$DatabaseAPI = new \Lib\DatabaseAPI();
 
 		$codeInfo = $DatabaseAPI->checkCode($code);
