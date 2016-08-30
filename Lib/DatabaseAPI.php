@@ -122,7 +122,7 @@ class DatabaseAPI extends Base {
 		} else {
 			$where = "id > 26560";
 		}
-		$sql = "SELECT count(id) FROM `chivas_info` where money = $money and $where"; 
+		$sql = "SELECT count(id) FROM `chivas_code` where money = $money and $where"; 
 		$res = $this->db->prepare($sql);
 		$res->execute();
 		$res->bind_result($num);
