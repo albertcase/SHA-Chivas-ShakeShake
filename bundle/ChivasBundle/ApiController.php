@@ -41,6 +41,7 @@ class ApiController extends Controller {
 	}
 
 	public function checkAction() {
+		return $this->statusPrint(4, '活动暂时关闭');
 		$UserAPI = new \Lib\UserAPI();
 		$user = $UserAPI->userLoad(true);
 		if (!$user) {
@@ -65,6 +66,7 @@ class ApiController extends Controller {
 
 
 	public function submitAction() {
+		return $this->statusPrint(4, '活动暂时关闭');
 		$UserAPI = new \Lib\UserAPI();
 		$user = $UserAPI->userLoad(true);
 		if (!$user) {
@@ -156,6 +158,7 @@ class ApiController extends Controller {
 	}
 
 	public function submit2Action() {
+		return $this->statusPrint(4, '活动暂时关闭');
 		$UserAPI = new \Lib\UserAPI();
 		$user = $UserAPI->userLoad(true);
 		if (!$user) {
@@ -233,6 +236,7 @@ class ApiController extends Controller {
 	}
 
 	public function getredpacketAction() {
+		return $this->statusPrint(4, '活动暂时关闭');
 		$UserAPI = new \Lib\UserAPI();
 		$user = $UserAPI->userLoad(true);
 		if (!$user) {
