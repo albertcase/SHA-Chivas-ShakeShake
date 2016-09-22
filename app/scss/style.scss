@@ -647,6 +647,30 @@ select:-webkit-autofill {
   }
 }
 
+//for end-pop
+.end-pop{
+  background: #240501 url("/app/images/e-bg.jpg") center no-repeat;
+  background-size:cover;
+  .top-slogan{
+    padding-top: 0.6rem;
+    @include size(5.07rem,3.15rem);
+    margin: 0 auto;
+  }
+  .qrcode{
+    position: absolute;
+    bottom: 0.6rem;
+    left: 50%;
+    @include size(3.06rem,3.06rem);
+    margin-left: -1.53rem;
+  }
+  .tips-text{
+    position: absolute;
+    left: 0.2rem;
+    bottom: 0.2rem;
+    @include size(1.91rem,0.29rem);
+  }
+}
+
 
 //test
 #__bs_notify__{

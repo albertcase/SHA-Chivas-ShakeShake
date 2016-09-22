@@ -131,5 +131,19 @@
         <img src="/app/images/tips-text.png" alt=""/>
     </div>
 </div>
+<!--the activity has end-->
+<div class="popup end-pop">
+    <!--<img src="/app/images/end-tips.jpg" alt=""/>-->
+    <div class="top-slogan">
+        <img src="/app/images/e-copy.png" alt=""/>
+    </div>
+    <div class="qrcode">
+        <img src="/app/images/e-qrcode.png" alt=""/>
+    </div>
+    <div class="tips-text">
+        <img src="/app/images/tips-text.png" alt=""/>
+    </div>
+</div>
+
 </body>
 </html>

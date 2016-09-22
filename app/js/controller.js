@@ -43,7 +43,7 @@
                 onComplete: function(){
                     //show age pop
                     document.getElementsByClassName('preloading')[0].remove();
-                    Common.removeClass(document.getElementsByClassName('tips-pop')[0],'hide');
+                    Common.removeClass(document.getElementsByClassName('end-pop')[0],'hide');
 
                     //bind all dom element
                     self.bindEvent();
